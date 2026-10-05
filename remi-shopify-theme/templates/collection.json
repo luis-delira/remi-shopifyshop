@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "collection-hero": {
+      "type": "collection-hero"
+    },
+    "main": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "cat-1": {
+          "type": "category_filter",
+          "settings": {
+            "collection": "concentradores-de-oxigeno",
+            "icon": "oxigenoterapia"
+          }
+        },
+        "cat-2": {
+          "type": "category_filter",
+          "settings": {
+            "collection": "apnea-del-sueno",
+            "icon": "apnea-del-sueno"
+          }
+        },
+        "cat-3": {
+          "type": "category_filter",
+          "settings": {
+            "collection": "camas-hospitalarias-y-colchones",
+            "icon": "camas"
+          }
+        },
+        "cat-4": {
+          "type": "category_filter",
+          "settings": {
+            "collection": "tanques-de-oxigeno-y-reguladores",
+            "icon": "reguladores"
+          }
+        },
+        "cat-5": {
+          "type": "category_filter",
+          "settings": {
+            "collection": "ventilacion-mecanica",
+            "icon": "ventilacion"
+          }
+        }
+      },
+      "block_order": [
+        "cat-1",
+        "cat-2",
+        "cat-3",
+        "cat-4",
+        "cat-5"
+      ]
+    },
+    "collection-cta": {
+      "type": "collection-cta",
+      "settings": {
+        "button_link": "shopify://pages/contacto"
+      }
+    }
+  },
+  "order": [
+    "collection-hero",
+    "main",
+    "collection-cta"
+  ]
+}

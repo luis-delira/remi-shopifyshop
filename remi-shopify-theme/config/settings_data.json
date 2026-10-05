@@ -1,0 +1,37 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "type_heading_font": "outfit_n7",
+      "type_body_font": "manrope_n4",
+      "business_name": "REMI Equipo Médico",
+      "business_area": "Aguascalientes, México",
+      "business_opening_hours": "Mo-Fr 09:00-19:00, Sa 09:00-14:00",
+      "business_price_range": "$$",
+      "color_primary": "#1e5078",
+      "color_primary_700": "#184060",
+      "color_primary_900": "#122f47",
+      "color_primary_50": "#eff3f6",
+      "color_primary_100": "#dde5eb",
+      "color_teal": "#13827f",
+      "color_teal_700": "#0e6361",
+      "color_teal_50": "#eef6f6",
+      "color_accent": "#208734",
+      "color_accent_700": "#186627",
+      "color_accent_50": "#edf5ef",
+      "color_ink": "#10222f",
+      "color_body": "#47606f",
+      "color_muted": "#7690a0",
+      "color_bg": "#f5f9fc",
+      "color_surface": "#ffffff",
+      "color_border": "#dfe8ee",
+      "contact_phone": "449 311 5440",
+      "whatsapp_number": "5214493115440",
+      "whatsapp_message": "Hola, me gustaría más información sobre equipo médico.",
+      "contact_email": "contacto@remiequipomedico.com",
+      "contact_hours": "Lunes a viernes de 9:00 a 19:00 h · Sábados de 9:00 a 14:00 h",
+      "social_facebook": "https://www.facebook.com/asesoriaremi",
+      "social_instagram": "https://www.instagram.com/remi_equipos_medicos"
+    }
+  }
+}

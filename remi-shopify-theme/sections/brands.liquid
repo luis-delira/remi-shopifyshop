@@ -1,0 +1,165 @@
+<section class="brands{% if section.settings.show_names %} brands--con-nombre{% endif %}"
+         style="--brands-logo-h: {{ section.settings.logo_height }}px">
+  <div class="container">
+    <p class="brands__label">{{ section.settings.label }}</p>
+    <div class="brands__row">
+      {%- comment -%}
+        Si el bloque trae logo (subido desde el editor o archivo del tema) se
+        muestra la imagen; si no, se cae al nombre en texto.
+      {%- endcomment -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign hay_logo = false
+          if block.settings.image != blank or block.settings.asset != blank
+            assign hay_logo = true
+          endif
+        -%}
+        <div class="brands__cell" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img
+              class="brands__logo"
+              src="{{ block.settings.image | image_url: width: 480 }}"
+              alt="{{ block.settings.name | escape }}"
+              width="{{ block.settings.width }}"
+              height="120"
+              loading="lazy"
+            >
+          {%- elsif block.settings.asset != blank -%}
+            <img
+              class="brands__logo"
+              src="{{ block.settings.asset | asset_url }}"
+              alt="{{ block.settings.name | escape }}"
+              width="{{ block.settings.width }}"
+              height="120"
+              loading="lazy"
+            >
+          {%- else -%}
+            <span class="brands__item">{{ block.settings.name }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.show_names and hay_logo -%}
+            <span class="brands__name">{{ block.settings.name }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marcas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Texto superior",
+      "default": "Trabajamos con marcas reconocidas mundialmente"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Alto de los logos",
+      "min": 24, "max": 80, "step": 2, "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "checkbox",
+      "id": "show_names",
+      "label": "Mostrar el nombre debajo de cada logo",
+      "default": false,
+      "info": "Útil cuando los logos no traen el nombre escrito."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Marca",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nombre",
+          "default": "ResMed",
+          "info": "Se usa como texto alternativo del logo."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo",
+          "info": "Si lo dejas vacío se usa el archivo del tema indicado abajo."
+        },
+        {
+          "type": "text",
+          "id": "asset",
+          "label": "Archivo del tema",
+          "info": "Nombre del archivo en assets, por ejemplo marca-resmed.png"
+        },
+        {
+          "type": "number",
+          "id": "width",
+          "label": "Ancho original en px",
+          "info": "Para que el navegador reserve el espacio y no salte la página.",
+          "default": 400
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Marcas",
+      "blocks": [
+        {
+          "type": "brand",
+          "settings": {
+            "name": "ResMed",
+            "asset": "marca-resmed.png",
+            "width": 572
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "name": "Inogen",
+            "asset": "marca-inogen.png",
+            "width": 360
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "name": "Philips",
+            "asset": "marca-philips.png",
+            "width": 343
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "name": "Drive",
+            "asset": "marca-drive.svg",
+            "width": 316
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "name": "Companion",
+            "asset": "marca-companion.png",
+            "width": 500
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "name": "Yuwell",
+            "asset": "marca-yuwell.png",
+            "width": 425
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

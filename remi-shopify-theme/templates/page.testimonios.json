@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "Testimonios",
+        "heading": "Lo que dicen nuestros clientes",
+        "show_all": true,
+        "max_visible": 12,
+        "review_label": "Deja tu reseña",
+        "review_link": "#ReviewForm"
+      },
+      "blocks": {
+        "t-1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Laura M.",
+            "role": "Aguascalientes, AGS",
+            "text": "Compré el CPAP para mi papá y la atención fue excelente desde la asesoría hasta la entrega. Se nota que conocen bien los equipos.",
+            "rating": 5
+          }
+        },
+        "t-2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Roberto S.",
+            "role": "Guadalajara, JAL",
+            "text": "Rentamos una cama clínica por dos meses y el proceso fue muy sencillo, con entrega puntual y equipo en perfectas condiciones.",
+            "rating": 5
+          }
+        },
+        "t-3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Diana C.",
+            "role": "Ciudad de México, CDMX",
+            "text": "El envío llegó antes de lo esperado y el concentrador de oxígeno funciona perfecto. Definitivamente volvería a comprar con ellos.",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "t-1",
+        "t-2",
+        "t-3"
+      ]
+    },
+    "review-form": {
+      "type": "review-form"
+    }
+  },
+  "order": [
+    "testimonials",
+    "review-form"
+  ]
+}

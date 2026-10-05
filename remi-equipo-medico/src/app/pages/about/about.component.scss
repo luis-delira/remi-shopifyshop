@@ -1,0 +1,262 @@
+.about-hero {
+  background: linear-gradient(180deg, var(--color-primary-50), var(--color-bg));
+  padding: 72px 0;
+}
+
+.about-hero__inner {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.about-hero h1 {
+  font-size: clamp(28px, 3.8vw, 42px);
+}
+
+.about-hero__actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.about-hero__panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 10px 28px;
+  box-shadow: var(--shadow-md);
+}
+
+.about-hero__panel-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.about-hero__panel-row:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.about-hero__panel-row strong {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  color: var(--color-primary);
+  min-width: 68px;
+}
+
+.about-hero__panel-row span {
+  font-size: 14px;
+  color: var(--color-body);
+}
+
+@media (max-width: 900px) {
+  .about-hero__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mission / vision */
+
+.mission__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.mission-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 32px;
+}
+
+.mission-card__icon {
+  width: 52px;
+  height: 52px;
+  padding: 11px;
+  border-radius: 14px;
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
+  margin-bottom: 16px;
+}
+
+.mission-card h3 {
+  font-size: 19px;
+}
+
+@media (max-width: 700px) {
+  .mission__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Values */
+
+.values__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.value-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 26px;
+}
+
+.value-card__number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--color-primary-100);
+  -webkit-text-stroke: 1.5px var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.value-card h3 {
+  font-size: 17px;
+  margin-bottom: 6px;
+}
+
+.value-card p {
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (max-width: 980px) {
+  .values__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .values__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Timeline */
+
+.timeline {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.timeline__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+
+.timeline__list::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-border);
+}
+
+.timeline__item {
+  position: relative;
+  padding-top: 34px;
+}
+
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-surface);
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.timeline__year {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.timeline__item p {
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .timeline__list {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .timeline__list::before {
+    top: 0;
+    bottom: 0;
+    left: 6px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .timeline__item {
+    padding-top: 0;
+    padding-left: 30px;
+  }
+
+  .timeline__item::before {
+    top: 4px;
+    left: 0;
+  }
+}
+
+/* Locations */
+
+.locations__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.location-card {
+  display: flex;
+  gap: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.location-card svg {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.location-card h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.location-card p {
+  font-size: 13.5px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .locations__grid {
+    grid-template-columns: 1fr;
+  }
+}

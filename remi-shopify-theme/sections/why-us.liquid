@@ -1,0 +1,103 @@
+{%- comment -%}
+  Video arriba y el texto debajo. El video puede venir de Archivos de Shopify
+  (ajuste "Video") o, si ese ajuste esta vacio, del que trae el tema en
+  assets/videodemo.mp4.
+{%- endcomment -%}
+
+<section class="section why">
+  <div class="container">
+    <div class="why__video">
+      {%- if section.settings.video_file != blank -%}
+        {{
+          section.settings.video_file
+          | video_tag:
+            controls: true,
+            playsinline: true,
+            muted: section.settings.autoplay,
+            autoplay: section.settings.autoplay,
+            loop: section.settings.autoplay,
+            image_size: '1200x'
+        }}
+      {%- else -%}
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          {% if section.settings.autoplay %}autoplay muted loop{% endif %}
+          {% if section.settings.video_poster != blank %}poster="{{ section.settings.video_poster | image_url: width: 1200 }}"{% endif %}
+        >
+          <source src="{{ 'videodemo.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      {%- endif -%}
+    </div>
+
+    <div class="why__copy">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      <p class="section-sub">{{ section.settings.text }}</p>
+
+      <ul class="why__list">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>{% render 'icon', name: 'check' %} {{ block.settings.text }}</li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="btn btn-primary">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Por qué elegirnos",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Video",
+      "info": "Si lo dejas vacío se usa el video que trae el tema (assets/videodemo.mp4)."
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Imagen de portada del video",
+      "info": "Se ve antes de darle play. Muy recomendable: evita que el video se descargue solo."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Reproducir automáticamente",
+      "info": "Se reproduce sin sonido y en bucle. Consume datos del visitante, úsalo con cuidado.",
+      "default": false
+    },
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Por qué elegir REMI" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Una compra tranquila, respaldada por expertos" },
+    { "type": "textarea", "id": "text", "label": "Descripción", "default": "Sabemos que elegir equipo médico es una decisión importante para ti o tu familia. Por eso combinamos productos certificados con atención humana en cada paso del proceso." },
+    { "type": "text", "id": "button_label", "label": "Texto del botón", "default": "Conoce más sobre nosotros" },
+    { "type": "url", "id": "button_link", "label": "Enlace del botón" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Punto",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texto", "default": "Asesoría antes, durante y después de tu compra." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Por qué elegirnos",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Asesoría antes, durante y después de tu compra." } },
+        { "type": "item", "settings": { "text": "Equipos originales, con garantía y refacciones disponibles." } },
+        { "type": "item", "settings": { "text": "Opciones de compra y renta según tu presupuesto." } },
+        { "type": "item", "settings": { "text": "Tres sucursales en Aguascalientes y envíos a todo el país." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

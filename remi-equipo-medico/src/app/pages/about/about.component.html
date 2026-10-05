@@ -1,0 +1,114 @@
+<section class="about-hero">
+  <div class="container about-hero__inner">
+    <div>
+      <span class="eyebrow">Nosotros</span>
+      <h1>Más de una década cuidando la salud de familias mexicanas</h1>
+      <p>
+        Somos REMI Equipo Médico, una empresa de Aguascalientes dedicada a la venta y renta de
+        equipo médico. Nuestro propósito es que cada cliente encuentre el equipo correcto, con
+        acompañamiento humano y honesto en todo el proceso.
+      </p>
+      <div class="about-hero__actions">
+        <a routerLink="/productos" class="btn btn-accent">Ver catálogo</a>
+        <a routerLink="/contacto" class="btn btn-outline">Contáctanos</a>
+      </div>
+    </div>
+    <div class="about-hero__panel">
+      <div class="about-hero__panel-row">
+        <strong>+12</strong>
+        <span>años de experiencia en el sector salud</span>
+      </div>
+      <div class="about-hero__panel-row">
+        <strong>+8,000</strong>
+        <span>clientes atendidos en todo México</span>
+      </div>
+      <div class="about-hero__panel-row">
+        <strong>3</strong>
+        <span>sucursales físicas en Aguascalientes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section mission">
+  <div class="container mission__grid">
+    <div class="mission-card">
+      <div class="mission-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 4.5 7 4.5c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 6.5 4 4.5 8-2.5 4.15-9.5 8.5-9.5 8.5z"/></svg>
+      </div>
+      <h3>Misión</h3>
+      <p>
+        Facilitar el acceso a equipo médico confiable, ofreciendo asesoría honesta y soluciones de
+        compra o renta adaptadas a cada necesidad de salud.
+      </p>
+    </div>
+    <div class="mission-card">
+      <div class="mission-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+      </div>
+      <h3>Visión</h3>
+      <p>
+        Ser la empresa de referencia en equipo médico en el centro del país, reconocida por su
+        cercanía, calidad y compromiso con el bienestar de sus clientes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section values">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Nuestros valores</span>
+      <h2 class="section-title">Lo que guía cada decisión que tomamos</h2>
+    </div>
+    <div class="values__grid">
+      @for (v of values; track v.title) {
+        <div class="value-card">
+          <span class="value-card__number">0{{ $index + 1 }}</span>
+          <h3>{{ v.title }}</h3>
+          <p>{{ v.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section timeline">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Nuestra historia</span>
+      <h2 class="section-title">Un crecimiento constante junto a nuestros clientes</h2>
+    </div>
+    <div class="timeline__list">
+      @for (m of milestones; track m.year) {
+        <div class="timeline__item">
+          <span class="timeline__year">{{ m.year }}</span>
+          <p>{{ m.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section locations">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Sucursales</span>
+      <h2 class="section-title">Visítanos en Aguascalientes</h2>
+      <p class="section-sub">
+        También enviamos a todo México en 2 a 3 días hábiles.
+      </p>
+    </div>
+    <div class="locations__grid">
+      @for (loc of locations; track loc.name) {
+        <div class="location-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
+          <div>
+            <h3>{{ loc.name }}</h3>
+            <p>{{ loc.address }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

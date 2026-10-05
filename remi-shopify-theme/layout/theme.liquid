@@ -1,0 +1,93 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary_900 }}">
+  <title>
+    {{ page_title }}{% if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+  {%- else -%}
+    <link rel="icon" type="image/png" href="{{ 'logo-favicon.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'logo-favicon.png' | asset_url }}">
+  {%- endif -%}
+
+  {% render 'meta-tags' %}
+
+  {{ content_for_header }}
+
+  {%- liquid
+    assign heading_font = settings.type_heading_font
+    assign body_font = settings.type_body_font
+    assign heading_weights = '600,700,800' | split: ','
+    assign body_weights = '500,600,700,800' | split: ','
+  -%}
+
+  {%- style -%}
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- for weight in heading_weights -%}
+      {%- assign heading_variant = heading_font | font_modify: 'weight', weight -%}
+      {%- if heading_variant %}{{ heading_variant | font_face: font_display: 'swap' }}{% endif -%}
+    {%- endfor -%}
+
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- for weight in body_weights -%}
+      {%- assign body_variant = body_font | font_modify: 'weight', weight -%}
+      {%- if body_variant %}{{ body_variant | font_face: font_display: 'swap' }}{% endif -%}
+    {%- endfor -%}
+
+    :root {
+      --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+      --color-primary: {{ settings.color_primary }};
+      --color-primary-700: {{ settings.color_primary_700 }};
+      --color-primary-900: {{ settings.color_primary_900 }};
+      --color-primary-50: {{ settings.color_primary_50 }};
+      --color-primary-100: {{ settings.color_primary_100 }};
+      --color-teal: {{ settings.color_teal }};
+      --color-teal-700: {{ settings.color_teal_700 }};
+      --color-teal-50: {{ settings.color_teal_50 }};
+      --color-accent: {{ settings.color_accent }};
+      --color-accent-700: {{ settings.color_accent_700 }};
+      --color-accent-50: {{ settings.color_accent_50 }};
+      --color-ink: {{ settings.color_ink }};
+      --color-body: {{ settings.color_body }};
+      --color-muted: {{ settings.color_muted }};
+      --color-bg: {{ settings.color_bg }};
+      --color-surface: {{ settings.color_surface }};
+      --color-border: {{ settings.color_border }};
+      --color-success: #1fa97c;
+    }
+  {%- endstyle -%}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+
+  {% render 'structured-data' %}
+</head>
+<body>
+  <a class="skip-to-content" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
+
+  <main id="MainContent" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+  {% render 'whatsapp-button' %}
+</body>
+</html>

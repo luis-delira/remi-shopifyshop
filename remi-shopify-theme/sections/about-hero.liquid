@@ -1,0 +1,61 @@
+<section class="about-hero">
+  <div class="container about-hero__inner">
+    <div>
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h1>{{ section.settings.heading }}</h1>
+      <p>{{ section.settings.text }}</p>
+      <div class="about-hero__actions">
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link }}" class="btn btn-accent">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a href="{{ section.settings.button_2_link }}" class="btn btn-outline">{{ section.settings.button_2_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="about-hero__panel">
+      {%- for block in section.blocks -%}
+        <div class="about-hero__panel-row" {{ block.shopify_attributes }}>
+          <strong>{{ block.settings.value }}</strong>
+          <span>{{ block.settings.label }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero de Nosotros",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Nosotros" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Más de una década cuidando la salud de familias mexicanas" },
+    { "type": "textarea", "id": "text", "label": "Descripción", "default": "Somos REMI Equipo Médico, una empresa de Aguascalientes dedicada a la venta y renta de equipo médico. Nuestro propósito es que cada cliente encuentre el equipo correcto, con acompañamiento humano y honesto en todo el proceso." },
+    { "type": "text", "id": "button_label", "label": "Botón 1 — texto", "default": "Ver catálogo" },
+    { "type": "url", "id": "button_link", "label": "Botón 1 — enlace" },
+    { "type": "text", "id": "button_2_label", "label": "Botón 2 — texto", "default": "Contáctanos" },
+    { "type": "url", "id": "button_2_link", "label": "Botón 2 — enlace" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Estadística",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Valor", "default": "+12" },
+        { "type": "text", "id": "label", "label": "Etiqueta", "default": "años de experiencia en el sector salud" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Hero de Nosotros",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "+12", "label": "años de experiencia en el sector salud" } },
+        { "type": "stat", "settings": { "value": "+8,000", "label": "clientes atendidos en todo México" } },
+        { "type": "stat", "settings": { "value": "3", "label": "sucursales físicas en Aguascalientes" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

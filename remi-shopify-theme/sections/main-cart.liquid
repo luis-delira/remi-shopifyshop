@@ -1,0 +1,59 @@
+<section class="section container cart-page">
+  <h1 class="section-title">{{ 'cart.general.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="empty-state">
+      <p>{{ 'cart.general.empty' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline">{{ 'cart.general.continue_shopping' | t }}</a>
+    </div>
+  {%- else -%}
+    {%- form 'cart', cart -%}
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>{{ 'cart.general.subtotal' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td class="cart-table__item">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title | escape }}" width="70" height="70">
+                {%- endif -%}
+                <div>
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  {%- if item.variant.title != 'Default Title' -%}<span class="cart-table__variant">{{ item.variant.title }}</span>{%- endif -%}
+                  <div class="cart-table__qty">
+                    <input type="number" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="0">
+                    <a href="{{ item.url_to_remove }}" class="cart-table__remove">{{ 'cart.general.remove' | t }}</a>
+                  </div>
+                </div>
+              </td>
+              <td>{{ item.final_line_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <div class="cart-summary__subtotal">
+          <span>{{ 'cart.general.subtotal' | t }}</span>
+          <strong>{{ cart.total_price | money }}</strong>
+        </div>
+        <div class="cart-summary__actions">
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline">{{ 'cart.general.continue_shopping' | t }}</a>
+          <button type="submit" name="checkout" class="btn btn-accent">{{ 'cart.general.checkout' | t }}</button>
+        </div>
+      </div>
+    {%- endform -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Carrito",
+  "settings": []
+}
+{% endschema %}

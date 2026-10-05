@@ -1,0 +1,54 @@
+{%- comment -%}
+  Imagen responsiva: genera srcset para que el navegador descargue solo el
+  tamaño que necesita, con width/height para evitar saltos de maquetación.
+
+  Uso:
+    {% render 'responsive-image',
+       image: product.featured_image,
+       sizes: '(max-width: 700px) 100vw, 300px',
+       widths: '300,450,600,900',
+       alt: product.title,
+       priority: true %}
+
+  Parámetros:
+    image     (obligatorio) objeto de imagen de Shopify
+    sizes     ancho que ocupará la imagen en pantalla (por defecto 100vw)
+    widths    lista de anchos a generar, separados por coma
+    alt       texto alternativo; si se omite usa el alt de la imagen
+    class     clases CSS extra
+    priority  true en la imagen principal de la página (carga inmediata)
+{%- endcomment -%}
+
+{%- liquid
+  assign widths_list = widths | default: '300,450,600,900,1200' | split: ','
+  assign max_width = widths_list | last | strip | plus: 0
+
+  # Nunca pedir más pixeles de los que tiene el original.
+  assign render_width = max_width
+  if image.width < max_width
+    assign render_width = image.width
+  endif
+  assign render_height = render_width | divided_by: image.aspect_ratio | round
+-%}
+
+{%- capture srcset_value -%}
+  {%- for width in widths_list -%}
+    {%- assign width_number = width | strip | plus: 0 -%}
+    {%- if width_number < render_width -%}
+      {{ image | image_url: width: width_number }} {{ width_number }}w,
+    {%- endif -%}
+  {%- endfor -%}
+  {{ image | image_url: width: render_width }} {{ render_width }}w
+{%- endcapture -%}
+
+<img
+  src="{{ image | image_url: width: render_width }}"
+  srcset="{{ srcset_value | strip | strip_newlines }}"
+  sizes="{{ sizes | default: '100vw' }}"
+  alt="{{ alt | default: image.alt | escape }}"
+  width="{{ render_width }}"
+  height="{{ render_height }}"
+  {% if priority %}loading="eager" fetchpriority="high"{% else %}loading="lazy" fetchpriority="auto"{% endif %}
+  decoding="async"
+  {% if class %}class="{{ class }}"{% endif %}
+>

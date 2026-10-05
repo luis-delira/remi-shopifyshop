@@ -1,0 +1,161 @@
+{
+  "sections": {
+    "about-hero": {
+      "type": "about-hero",
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "2016",
+            "label": "año en que nacimos en Aguascalientes"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "15",
+            "label": "ingenieros, enfermeros y personal administrativo"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "3",
+            "label": "sucursales físicas en Aguascalientes"
+          }
+        }
+      },
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3"
+      ],
+      "settings": {
+        "button_link": "shopify://collections/all",
+        "button_2_link": "shopify://pages/contacto"
+      }
+    },
+    "mission-vision": {
+      "type": "mission-vision"
+    },
+    "values": {
+      "type": "values",
+      "blocks": {
+        "v-1": {
+          "type": "value",
+          "settings": {
+            "title": "Confianza",
+            "text": "Cada equipo que ofrecemos cumple con estándares de calidad y garantía real."
+          }
+        },
+        "v-2": {
+          "type": "value",
+          "settings": {
+            "title": "Cercanía",
+            "text": "Asesoramos a cada cliente como si fuera un familiar, sin tecnicismos innecesarios."
+          }
+        },
+        "v-3": {
+          "type": "value",
+          "settings": {
+            "title": "Compromiso",
+            "text": "Cumplimos tiempos de entrega y damos seguimiento después de la compra."
+          }
+        },
+        "v-4": {
+          "type": "value",
+          "settings": {
+            "title": "Mejora continua",
+            "text": "Actualizamos nuestro catálogo con la tecnología médica más reciente."
+          }
+        }
+      },
+      "block_order": [
+        "v-1",
+        "v-2",
+        "v-3",
+        "v-4"
+      ]
+    },
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "m-1": {
+          "type": "milestone",
+          "settings": {
+            "year": "2016",
+            "text": "Nace REMI Equipo Médico en Aguascalientes."
+          }
+        },
+        "m-2": {
+          "type": "milestone",
+          "settings": {
+            "year": "2020",
+            "text": "Consolidamos la distribución de oxígeno medicinal y la renta de equipo."
+          }
+        },
+        "m-3": {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "text": "Abrimos la tercera sucursal en Aguascalientes."
+          }
+        },
+        "m-4": {
+          "type": "milestone",
+          "settings": {
+            "year": "2026",
+            "text": "Atendemos a varios estados de la República con envíos a todo México."
+          }
+        }
+      },
+      "block_order": [
+        "m-1",
+        "m-2",
+        "m-3",
+        "m-4"
+      ]
+    },
+    "locations": {
+      "type": "locations",
+      "blocks": {
+        "loc-1": {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Universidad",
+            "address": "Av. Universidad 316, San Cayetano, C.P. 20010, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/maE1vZzLB2B4T85V7"
+          }
+        },
+        "loc-2": {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Central",
+            "address": "Av. Aguascalientes Ote. 2408, Desarrollo Especial Ojocaliente, C.P. 20196, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/nQ8C5RZAviT8DXaE8"
+          }
+        },
+        "loc-3": {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Ojocaliente",
+            "address": "Av. Aguascalientes Ote., Los Conos 2602, C.P. 20196, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/Uhn2A5mbBWaG2Lpu5"
+          }
+        }
+      },
+      "block_order": [
+        "loc-1",
+        "loc-2",
+        "loc-3"
+      ]
+    }
+  },
+  "order": [
+    "about-hero",
+    "mission-vision",
+    "values",
+    "timeline",
+    "locations"
+  ]
+}

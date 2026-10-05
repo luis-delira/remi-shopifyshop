@@ -1,0 +1,48 @@
+<section class="section timeline">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="timeline__list">
+      {%- for block in section.blocks -%}
+        <div class="timeline__item" {{ block.shopify_attributes }}>
+          <span class="timeline__year">{{ block.settings.year }}</span>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Historia",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Nuestra historia" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Un crecimiento constante junto a nuestros clientes" }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Hito",
+      "settings": [
+        { "type": "text", "id": "year", "label": "Año", "default": "2013" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Iniciamos operaciones en Aguascalientes con equipo de ortopedia." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Historia",
+      "blocks": [
+        { "type": "milestone", "settings": { "year": "2013", "text": "Iniciamos operaciones en Aguascalientes con equipo de ortopedia." } },
+        { "type": "milestone", "settings": { "year": "2017", "text": "Ampliamos el catálogo a oxigenoterapia y apnea del sueño." } },
+        { "type": "milestone", "settings": { "year": "2020", "text": "Lanzamos el servicio de renta de equipo médico en la ciudad." } },
+        { "type": "milestone", "settings": { "year": "2024", "text": "Iniciamos envíos a todo México con presencia en 3 sucursales." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

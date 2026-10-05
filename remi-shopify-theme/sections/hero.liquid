@@ -1,0 +1,406 @@
+{%- comment -%}
+  Carrusel del inicio. La primera ventana es el hero de siempre (texto, botones,
+  estadisticas y tarjetas); las siguientes son imagenes completas que vienen de
+  los bloques "Ventana de imagen" y ya traen su propio texto incrustado, por eso
+  no se les encima nada.
+
+  El alto se ajusta a la ventana activa, en lugar de recortar las imagenes: un
+  banner panoramico y el hero de texto tienen proporciones muy distintas y
+  cualquier alto fijo mutilaria a uno de los dos.
+{%- endcomment -%}
+
+{%- liquid
+  assign imagenes = section.blocks | where: 'type', 'slide'
+  assign promos = section.blocks | where: 'type', 'promo'
+  assign rentas = section.blocks | where: 'type', 'renta'
+  assign total = imagenes.size | plus: promos.size | plus: rentas.size | plus: 1
+-%}
+
+<div
+  class="hero-carousel{% if total > 1 %} hero-carousel--multiple{% endif %}"
+  data-carousel
+  data-autoplay="{{ section.settings.autoplay_seconds }}"
+  {% if total > 1 %}role="region" aria-roledescription="carrusel" aria-label="Destacados"{% endif %}
+>
+  <div class="hero-carousel__track" data-carousel-track>
+
+    {%- comment -%} Ventana 1: el hero de contenido. {%- endcomment -%}
+    <div class="hero-carousel__slide is-active" data-slide aria-hidden="false">
+      <section class="hero hero--contenido">
+        {%- assign fondo = section.settings.background -%}
+        <div class="hero__bg" aria-hidden="true">
+          {%- if fondo != blank -%}
+            {% render 'responsive-image', image: fondo, alt: '', sizes: '100vw', widths: '1000,1600,2400', priority: true %}
+          {%- else -%}
+            <img src="{{ 'hero-fondo-1600.jpg' | asset_url }}"
+                 srcset="{{ 'hero-fondo-1000.jpg' | asset_url }} 1000w, {{ 'hero-fondo-1600.jpg' | asset_url }} 1600w, {{ 'hero-fondo-2400.jpg' | asset_url }} 2400w"
+                 sizes="100vw" width="2816" height="1536" alt="" fetchpriority="high" decoding="async">
+          {%- endif -%}
+        </div>
+        <div class="container hero__inner">
+          <div class="hero__copy">
+            <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+            <h1>{{ section.settings.heading }}</h1>
+            <p class="hero__lead">{{ section.settings.text }}</p>
+            <div class="hero__actions">
+              {%- if section.settings.button_label != blank -%}
+                <a href="{{ section.settings.button_link }}" class="btn btn-accent">{{ section.settings.button_label }}</a>
+              {%- endif -%}
+              {%- if section.settings.button_2_label != blank -%}
+                <a href="{{ section.settings.button_2_link }}" class="btn btn-outline">{{ section.settings.button_2_label }}</a>
+              {%- endif -%}
+            </div>
+
+            <div class="hero__stats">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'stat' -%}
+                  <div class="hero__stat" {{ block.shopify_attributes }}>
+                    <strong>{{ block.settings.value }}</strong>
+                    <span>{{ block.settings.label }}</span>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="hero__visual">
+            <div class="hero__card hero__card--main">
+              <div class="hero__card-icon">{% render 'icon', name: section.settings.card_icon %}</div>
+              <h3>{{ section.settings.card_title }}</h3>
+              <p>{{ section.settings.card_text }}</p>
+              <span class="badge badge-teal">{{ section.settings.card_badge }}</span>
+            </div>
+            <div class="hero__card hero__card--float hero__card--top">
+              {% render 'icon', name: 'shield' %}
+              <div>
+                <strong>{{ section.settings.float_1_title }}</strong>
+                <span>{{ section.settings.float_1_text }}</span>
+              </div>
+            </div>
+            <div class="hero__card hero__card--float hero__card--bottom">
+              {% render 'icon', name: 'truck' %}
+              <div>
+                <strong>{{ section.settings.float_2_title }}</strong>
+                <span>{{ section.settings.float_2_text }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    {%- comment -%} Ventanas extra, en el orden que tengan en el editor. {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'slide' -%}
+      {%- liquid
+        assign proporcion = block.settings.asset_ratio | default: '2.0236'
+        if block.settings.image != blank
+          assign proporcion = block.settings.image.aspect_ratio
+        endif
+      -%}
+      <div class="hero-carousel__slide hero-carousel__slide--imagen" data-slide aria-hidden="true"
+           style="--ar: {{ proporcion }}" {{ block.shopify_attributes }}>
+        <section class="hero hero--imagen">
+          {%- if block.settings.link != blank -%}<a class="hero__imagen-enlace" href="{{ block.settings.link }}">{%- endif -%}
+
+          {%- if block.settings.image != blank -%}
+            {%- if block.settings.image_mobile != blank -%}
+              {%- assign movil = block.settings.image_mobile -%}
+              <picture style="--ar-movil: {{ movil.aspect_ratio }}">
+                <source media="(max-width: 760px)"
+                        srcset="{{ movil | image_url: width: 720 }} 720w, {{ movil | image_url: width: 1080 }} 1080w"
+                        sizes="100vw">
+                {% render 'responsive-image', image: block.settings.image, alt: block.settings.alt, sizes: '100vw', widths: '1000,1600,2400', class: 'hero__imagen' %}
+              </picture>
+            {%- else -%}
+              {% render 'responsive-image', image: block.settings.image, alt: block.settings.alt, sizes: '100vw', widths: '1000,1600,2400', class: 'hero__imagen' %}
+            {%- endif -%}
+          {%- elsif block.settings.asset != blank -%}
+            {%- assign base = block.settings.asset -%}
+            {%- capture imagen_ancha -%}
+              <img class="hero__imagen"
+                   src="{{ base | append: '-1600.jpg' | asset_url }}"
+                   srcset="{{ base | append: '-1000.jpg' | asset_url }} 1000w, {{ base | append: '-1600.jpg' | asset_url }} 1600w, {{ base | append: '-2400.jpg' | asset_url }} 2400w"
+                   sizes="100vw" width="2914" height="1440"
+                   alt="{{ block.settings.alt | escape }}" loading="lazy" decoding="async">
+            {%- endcapture -%}
+            {%- if block.settings.asset_mobile_ratio != blank -%}
+              <picture style="--ar-movil: {{ block.settings.asset_mobile_ratio }}">
+                <source media="(max-width: 760px)"
+                        srcset="{{ base | append: '-movil-720.jpg' | asset_url }} 720w, {{ base | append: '-movil-1080.jpg' | asset_url }} 1080w"
+                        sizes="100vw">
+                {{ imagen_ancha }}
+              </picture>
+            {%- else -%}
+              {{ imagen_ancha }}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if block.settings.link != blank -%}</a>{%- endif -%}
+        </section>
+      </div>
+
+      {%- elsif block.type == 'promo' -%}
+      {%- liquid
+        assign fin = block.settings.deadline | strip
+        if fin != blank
+          assign fin_iso = fin | replace: ' ', 'T' | append: ':00-06:00'
+        endif
+      -%}
+      <div class="hero-carousel__slide hero-carousel__slide--promo" data-slide aria-hidden="true" {{ block.shopify_attributes }}>
+        <section class="hero hero--promo">
+          <div class="container promo__inner">
+
+            <div class="promo__copy">
+              <span class="eyebrow eyebrow--promo">{{ block.settings.eyebrow }}</span>
+              <h2 class="promo__heading">{{ block.settings.heading }}</h2>
+              {%- if block.settings.text != blank -%}
+                <p class="promo__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+
+              {%- if fin_iso -%}
+                <div class="promo__countdown" data-countdown="{{ fin_iso }}">
+                  <p class="visually-hidden">La promoción termina el {{ fin }}, hora del centro de México.</p>
+                  <div class="promo__count" aria-hidden="true">
+                    <span class="promo__unit"><strong class="promo__num" data-unit="dias">--</strong><span class="promo__label">días</span></span>
+                    <span class="promo__unit"><strong class="promo__num" data-unit="horas">--</strong><span class="promo__label">horas</span></span>
+                    <span class="promo__unit"><strong class="promo__num" data-unit="minutos">--</strong><span class="promo__label">min</span></span>
+                    <span class="promo__unit"><strong class="promo__num" data-unit="segundos">--</strong><span class="promo__label">seg</span></span>
+                  </div>
+                  <p class="promo__terminada" data-countdown-ended hidden>{{ block.settings.ended_text }}</p>
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.button_label != blank -%}
+                <a href="{{ block.settings.button_link }}" class="btn btn-accent promo__cta">{{ block.settings.button_label }}</a>
+              {%- endif -%}
+            </div>
+
+            <div class="promo__cards">
+              {%- for producto in block.settings.products limit: 3 -%}
+                {%- liquid
+                  assign rebaja = 0
+                  if producto.compare_at_price > producto.price
+                    assign ahorro = producto.compare_at_price | minus: producto.price | times: 100.0
+                    assign rebaja = ahorro | divided_by: producto.compare_at_price | round
+                  endif
+                -%}
+                <a class="promo-card" href="{{ producto.url }}">
+                  <span class="promo-card__media">
+                    {%- if producto.featured_image -%}
+                      {% render 'responsive-image', image: producto.featured_image, alt: producto.title,
+                         sizes: '(max-width: 980px) 45vw, 230px', widths: '230,345,460' %}
+                    {%- else -%}
+                      <span class="icon-placeholder">{% render 'icon', name: 'apnea-del-sueno' %}</span>
+                    {%- endif -%}
+                    {%- if rebaja > 0 -%}<span class="promo-card__off">-{{ rebaja }}%</span>{%- endif -%}
+                  </span>
+                  <span class="promo-card__body">
+                    <span class="promo-card__name">{{ producto.title | split: ' con ' | first }}</span>
+                    <span class="promo-card__precios">
+                      {%- if producto.compare_at_price > producto.price -%}
+                        <s class="promo-card__antes">{{ producto.compare_at_price | money }}</s>
+                      {%- endif -%}
+                      <strong class="promo-card__ahora">{{ producto.price | money }}</strong>
+                    </span>
+                  </span>
+                </a>
+              {%- endfor -%}
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      {%- elsif block.type == 'renta' -%}
+      {%- liquid
+        assign foto = block.settings.image
+        if foto == blank and block.settings.product != blank
+          assign foto = block.settings.product.featured_image
+        endif
+      -%}
+      <div class="hero-carousel__slide hero-carousel__slide--renta" data-slide aria-hidden="true" {{ block.shopify_attributes }}>
+        <section class="hero hero--renta">
+          <div class="container renta__inner">
+
+            <div class="renta__copy">
+              <span class="eyebrow eyebrow--renta">{% render 'icon', name: 'renta' %}{{ block.settings.eyebrow }}</span>
+              <h2 class="renta__heading">{{ block.settings.heading }}</h2>
+              {%- if block.settings.text != blank -%}
+                <p class="renta__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+
+              <ol class="renta__pasos">
+                {%- for i in (1..3) -%}
+                  {%- assign clave = 'step_' | append: i -%}
+                  {%- assign titulo = block.settings[clave] -%}
+                  {%- if titulo != blank -%}
+                    <li class="renta__paso">
+                      <span class="renta__num">{{ i }}</span>
+                      <span class="renta__paso-texto">{{ titulo }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ol>
+
+              <div class="renta__acciones">
+                {%- if block.settings.whatsapp_label != blank -%}
+                  {%- assign wa = block.settings.whatsapp_message | default: settings.whatsapp_message | url_encode -%}
+                  <a class="btn btn-whatsapp" href="https://wa.me/{{ settings.whatsapp_number }}?text={{ wa }}" target="_blank" rel="noopener">
+                    {% render 'icon', name: 'whatsapp' %}{{ block.settings.whatsapp_label }}
+                  </a>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank -%}
+                  <a class="btn btn-outline" href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="renta__visual">
+              <div class="renta__marco">
+                {%- if foto -%}
+                  {% render 'responsive-image', image: foto, alt: block.settings.heading,
+                     sizes: '(max-width: 980px) 70vw, 380px', widths: '380,570,760' %}
+                {%- else -%}
+                  <span class="icon-placeholder">{% render 'icon', name: 'oxigenoterapia' %}</span>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.badge != blank -%}
+                <span class="renta__badge">{% render 'icon', name: 'check-circle' %}{{ block.settings.badge }}</span>
+              {%- endif -%}
+            </div>
+
+          </div>
+        </section>
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if total > 1 -%}
+    <button class="hero-carousel__arrow hero-carousel__arrow--prev" type="button" data-carousel-prev aria-label="Ventana anterior">
+      {% render 'icon', name: 'arrow-right' %}
+    </button>
+    <button class="hero-carousel__arrow hero-carousel__arrow--next" type="button" data-carousel-next aria-label="Ventana siguiente">
+      {% render 'icon', name: 'arrow-right' %}
+    </button>
+
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "range", "id": "autoplay_seconds", "label": "Cambiar de ventana cada (0 = solo manual)", "min": 0, "max": 12, "step": 1, "unit": "s", "default": 6 },
+    { "type": "header", "content": "Ventana 1 — contenido" },
+    { "type": "image_picker", "id": "background", "label": "Imagen de fondo (opcional, reemplaza la del tema)" },
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Venta y renta de equipo médico" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Cuidamos tu salud con equipo médico en el que puedes confiar" },
+    { "type": "textarea", "id": "text", "label": "Descripción", "default": "En Aguascalientes y en todo México, te acompañamos a elegir el equipo médico correcto: oxigenoterapia, apnea del sueño, ortopedia y más, con marcas certificadas y asesoría real." },
+    { "type": "text", "id": "button_label", "label": "Botón 1 — texto", "default": "Ver productos" },
+    { "type": "url", "id": "button_link", "label": "Botón 1 — enlace" },
+    { "type": "text", "id": "button_2_label", "label": "Botón 2 — texto", "default": "Hablar con un asesor" },
+    { "type": "url", "id": "button_2_link", "label": "Botón 2 — enlace" },
+    { "type": "header", "content": "Tarjeta destacada" },
+    {
+      "type": "select",
+      "id": "card_icon",
+      "label": "Ícono",
+      "default": "apnea-del-sueno",
+      "options": [
+        { "value": "oxigenoterapia", "label": "Oxigenoterapia" },
+        { "value": "apnea-del-sueno", "label": "Apnea del sueño" },
+        { "value": "ortopedia", "label": "Ortopedia" },
+        { "value": "equipo-medico", "label": "Equipo médico" },
+        { "value": "reguladores", "label": "Reguladores" },
+        { "value": "renta", "label": "Renta" }
+      ]
+    },
+    { "type": "text", "id": "card_title", "label": "Título de tarjeta", "default": "CPAP AirSense 11" },
+    { "type": "text", "id": "card_text", "label": "Texto de tarjeta", "default": "Terapia de sueño silenciosa con control por app." },
+    { "type": "text", "id": "card_badge", "label": "Etiqueta de tarjeta", "default": "Más vendido" },
+    { "type": "header", "content": "Tarjetas flotantes" },
+    { "type": "text", "id": "float_1_title", "label": "Flotante 1 — título", "default": "Garantía real" },
+    { "type": "text", "id": "float_1_text", "label": "Flotante 1 — texto", "default": "en todos los equipos" },
+    { "type": "text", "id": "float_2_title", "label": "Flotante 2 — título", "default": "2-3 días" },
+    { "type": "text", "id": "float_2_text", "label": "Flotante 2 — texto", "default": "envío nacional" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Estadística",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Valor", "default": "+12" },
+        { "type": "text", "id": "label", "label": "Etiqueta", "default": "años de experiencia" }
+      ]
+    },
+    {
+      "type": "renta",
+      "name": "Ventana de renta",
+      "settings": [
+        { "type": "paragraph", "content": "Ventana para explicar un servicio de renta: tres pasos, una foto y botón de WhatsApp. No muestra precios, porque la cotización de renta se da caso por caso." },
+        { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Renta en Aguascalientes" },
+        { "type": "text", "id": "heading", "label": "Título", "default": "¿Lo necesitas solo unas semanas? Réntalo" },
+        { "type": "textarea", "id": "text", "label": "Descripción", "default": "Tanques de oxígeno con regulador, cánula y vaso humidificador, listos para usar. Sin comprar un equipo que quizá solo ocupas un tiempo." },
+        { "type": "header", "content": "Pasos" },
+        { "type": "text", "id": "step_1", "label": "Paso 1", "default": "Escríbenos y cuéntanos qué necesitas" },
+        { "type": "text", "id": "step_2", "label": "Paso 2", "default": "Te orientamos y te pasamos la cotización" },
+        { "type": "text", "id": "step_3", "label": "Paso 3", "default": "Coordinamos la entrega desde tu sucursal más cercana" },
+        { "type": "header", "content": "Imagen" },
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "product", "id": "product", "label": "O toma la foto de este producto", "info": "Se usa solo si no eliges una imagen." },
+        { "type": "text", "id": "badge", "label": "Etiqueta sobre la imagen", "default": "Con regulador, cánula y vaso humidificador" },
+        { "type": "header", "content": "Botones" },
+        { "type": "text", "id": "whatsapp_label", "label": "WhatsApp — texto", "default": "Cotizar por WhatsApp" },
+        { "type": "text", "id": "whatsapp_message", "label": "WhatsApp — mensaje", "default": "Hola, quiero información sobre la renta de tanques de oxígeno." },
+        { "type": "text", "id": "button_label", "label": "Botón 2 — texto", "default": "Ver todo lo que rentamos" },
+        { "type": "url", "id": "button_link", "label": "Botón 2 — enlace" }
+      ]
+    },
+    {
+      "type": "promo",
+      "name": "Ventana de promociones",
+      "settings": [
+        { "type": "paragraph", "content": "Cuenta regresiva y tarjetas de producto. El descuento de cada tarjeta se calcula solo, a partir del precio y el precio de comparación que tenga el producto en Shopify." },
+        { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Promoción por tiempo limitado" },
+        { "type": "text", "id": "heading", "label": "Título", "default": "Duerme mejor y paga menos" },
+        { "type": "textarea", "id": "text", "label": "Descripción", "default": "Descuento en nuestra línea CPAP, con mascarilla incluida, garantía y asesoría para configurar tu terapia." },
+        { "type": "header", "content": "Cuenta regresiva" },
+        { "type": "text", "id": "deadline", "label": "Termina el (AAAA-MM-DD HH:MM)", "info": "Hora del centro de México. Déjalo vacío para ocultar el reloj. Pon aquí la fecha real en que termina la promoción." },
+        { "type": "text", "id": "ended_text", "label": "Texto al terminar", "default": "Esta promoción ya terminó. Pregúntanos por las vigentes." },
+        { "type": "header", "content": "Productos" },
+        { "type": "product_list", "id": "products", "label": "Productos en oferta", "limit": 3 },
+        { "type": "header", "content": "Botón" },
+        { "type": "text", "id": "button_label", "label": "Texto", "default": "Ver todos los CPAP" },
+        { "type": "url", "id": "button_link", "label": "Enlace" }
+      ]
+    },
+    {
+      "type": "slide",
+      "name": "Ventana de imagen",
+      "settings": [
+        { "type": "paragraph", "content": "Una imagen a todo lo ancho. Úsala con banners que ya traen su propio texto: el carrusel no les encima nada." },
+        { "type": "image_picker", "id": "image", "label": "Imagen (panorámica, 2400 px de ancho)" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Versión para celular (opcional, más vertical)" },
+        { "type": "text", "id": "alt", "label": "Texto alternativo", "info": "Describe la imagen y transcribe el texto que aparece en ella." },
+        { "type": "url", "id": "link", "label": "Enlace al hacer clic" },
+        { "type": "text", "id": "asset", "label": "Archivo del tema (avanzado)", "info": "Nombre base de una imagen ya incluida en el tema, sin el tamaño ni la extensión. Solo se usa si no eliges una imagen arriba." },
+        { "type": "text", "id": "asset_mobile_ratio", "label": "Proporción de la versión vertical (avanzado)", "info": "Ancho dividido entre alto, por ejemplo 0.5143. Déjalo vacío si el archivo del tema no tiene versión para celular." },
+        { "type": "text", "id": "asset_ratio", "label": "Proporción del archivo del tema (avanzado)", "info": "Ancho dividido entre alto, por ejemplo 2.0236." }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "+12", "label": "años de experiencia" } },
+        { "type": "stat", "settings": { "value": "+8,000", "label": "clientes atendidos" } },
+        { "type": "stat", "settings": { "value": "3", "label": "sucursales en Aguascalientes" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

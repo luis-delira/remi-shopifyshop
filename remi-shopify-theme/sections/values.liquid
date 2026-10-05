@@ -1,0 +1,49 @@
+<section class="section values">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="values__grid">
+      {%- for block in section.blocks -%}
+        <div class="value-card" {{ block.shopify_attributes }}>
+          <span class="value-card__number">0{{ forloop.index }}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Valores",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Nuestros valores" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Lo que guía cada decisión que tomamos" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Valor",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Confianza" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Cada equipo que ofrecemos cumple con estándares de calidad y garantía real." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Valores",
+      "blocks": [
+        { "type": "value", "settings": { "title": "Confianza", "text": "Cada equipo que ofrecemos cumple con estándares de calidad y garantía real." } },
+        { "type": "value", "settings": { "title": "Cercanía", "text": "Asesoramos a cada cliente como si fuera un familiar, sin tecnicismos innecesarios." } },
+        { "type": "value", "settings": { "title": "Compromiso", "text": "Cumplimos tiempos de entrega y damos seguimiento después de la compra." } },
+        { "type": "value", "settings": { "title": "Mejora continua", "text": "Actualizamos nuestro catálogo con la tecnología médica más reciente." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

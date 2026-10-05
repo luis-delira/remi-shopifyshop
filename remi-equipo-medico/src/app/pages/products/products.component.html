@@ -1,0 +1,75 @@
+<section class="catalog-hero">
+  <div class="container">
+    <span class="eyebrow">Catálogo</span>
+    <h1>Equipo médico certificado para ti y tu familia</h1>
+    <p>
+      Filtra por categoría para encontrar el equipo que necesitas. Todos nuestros productos
+      cuentan con garantía y asesoría de nuestro equipo.
+    </p>
+  </div>
+</section>
+
+<section class="section catalog">
+  <div class="container">
+    <div class="catalog__filters">
+      <button
+        type="button"
+        class="filter-chip"
+        [class.active]="activeCategory() === 'todos'"
+        (click)="setCategory('todos')"
+      >
+        Todos
+      </button>
+      @for (cat of products.categories; track cat.slug) {
+        <button
+          type="button"
+          class="filter-chip"
+          [class.active]="activeCategory() === cat.slug"
+          (click)="setCategory(cat.slug)"
+        >
+          <remi-category-icon [icon]="cat.slug" />
+          {{ cat.name }}
+        </button>
+      }
+    </div>
+
+    @if (filteredProducts().length) {
+      <div class="product-grid">
+        @for (p of filteredProducts(); track p.id) {
+          <div class="product-card">
+            <div class="product-card__media">
+              <remi-category-icon [icon]="p.category" />
+              @if (p.badge) {
+                <span class="badge badge-accent product-card__badge">{{ p.badge }}</span>
+              }
+            </div>
+            <div class="product-card__body">
+              <span class="product-card__brand">{{ p.brand }}</span>
+              <h3>{{ p.name }}</h3>
+              <p>{{ p.description }}</p>
+              <div class="product-card__footer">
+                <strong>{{ p.price | currency:'MXN':'$':'1.0-0' }} MXN</strong>
+                <a routerLink="/contacto" class="btn btn-primary btn-sm">Cotizar</a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No encontramos productos en esta categoría por el momento.</p>
+        <a routerLink="/contacto" class="btn btn-outline">Pregúntanos por disponibilidad</a>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="catalog-cta">
+  <div class="container catalog-cta__inner">
+    <div>
+      <h2>¿No encuentras lo que buscas?</h2>
+      <p>Contamos con más equipo disponible bajo pedido. Cuéntanos qué necesitas.</p>
+    </div>
+    <a routerLink="/contacto" class="btn btn-accent">Solicitar cotización</a>
+  </div>
+</section>

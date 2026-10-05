@@ -1,0 +1,133 @@
+<footer class="site-footer">
+  <div class="footer__top">
+    <div class="footer__col footer__brand">
+      {%- comment -%}
+        El logo tiene texto negro en el anillo, así que sobre el fondo azul oscuro
+        del pie va dentro de un disco blanco para que siga siendo legible.
+      {%- endcomment -%}
+      <a href="{{ routes.root_url }}" class="footer__logo">
+        <span class="footer__logo-mark">
+          {%- if settings.logo_image -%}
+            <img src="{{ settings.logo_image | image_url: width: 88 }}" alt="{{ shop.name }}" width="44" height="44">
+          {%- else -%}
+            <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" width="44" height="44">
+          {%- endif -%}
+        </span>
+        REMI <strong>Equipo Médico</strong>
+      </a>
+      <p>{{ section.settings.brand_text }}</p>
+      <div class="footer__social">
+        {%- if settings.social_facebook != blank -%}
+          <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'icon', name: 'facebook' %}</a>
+        {%- endif -%}
+        {%- if settings.social_instagram != blank -%}
+          <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h4>Navegación</h4>
+      <ul>
+        {%- for link in section.settings.footer_menu.links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4>Categorías</h4>
+      <ul>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'category_link' and block.settings.collection != blank -%}
+            <li><a href="{{ block.settings.collection.url }}">{{ block.settings.collection.title }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4>Contacto</h4>
+      <ul class="footer__contact">
+        <li>{% render 'icon', name: 'phone' %} {{ settings.contact_phone }}</li>
+        <li>{% render 'icon', name: 'mail' %} {{ settings.contact_email }}</li>
+        <li>{% render 'icon', name: 'location' %} {{ section.settings.locations_text }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__trust">
+    <span>{% render 'icon', name: 'shield' %} Pago 100% seguro</span>
+    <span>{% render 'icon', name: 'truck' %} Envíos a todo México</span>
+    <span>{% render 'icon', name: 'clock' %} Soporte y garantía</span>
+  </div>
+
+  {%- if section.settings.cofepris_label != blank or section.settings.cofepris_number != blank -%}
+    <div class="footer__cofepris">
+      {%- if section.settings.cofepris_label != blank -%}
+        <span class="footer__cofepris-label">{{ section.settings.cofepris_label }}</span>
+      {%- endif -%}
+      {%- if section.settings.cofepris_number != blank -%}
+        <span class="footer__cofepris-num">Número de ingreso: <strong>{{ section.settings.cofepris_number }}</strong></span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="footer__bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos los derechos reservados.</p>
+    <p>Aguascalientes, México</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pie de página",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_text",
+      "label": "Texto de marca",
+      "default": "Venta y renta de equipo médico en Aguascalientes con envíos a todo México. Trabajamos con marcas certificadas para tu salud y la de tu familia."
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Menú del pie de página",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "locations_text",
+      "label": "Texto de sucursales",
+      "default": "3 sucursales en Aguascalientes"
+    },
+    { "type": "header", "content": "COFEPRIS" },
+    {
+      "type": "text",
+      "id": "cofepris_label",
+      "label": "Leyenda",
+      "default": "Uso exclusivo de la COFEPRIS"
+    },
+    {
+      "type": "text",
+      "id": "cofepris_number",
+      "label": "Número de ingreso",
+      "default": "2501015006B00030"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_link",
+      "name": "Categoría",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Colección"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}

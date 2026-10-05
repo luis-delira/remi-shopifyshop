@@ -1,0 +1,248 @@
+{%- liquid
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+
+  assign has_facets = false
+  if collection.filters.size > 0
+    assign has_facets = true
+  endif
+
+  assign active_filter_count = 0
+  for filter in collection.filters
+    assign active_filter_count = active_filter_count | plus: filter.active_values.size
+    # El filtro de precio no usa active_values: guarda el rango en min_value / max_value.
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign active_filter_count = active_filter_count | plus: 1
+      endif
+    endif
+  endfor
+-%}
+
+<section class="section catalog">
+  <div class="container">
+    {%- comment -%} Atajos por categoría: llevan a cada colección. {%- endcomment -%}
+    <div class="catalog__filters">
+      <a href="{{ routes.all_products_collection_url }}" class="filter-chip{% if collection.handle == 'all' %} active{% endif %}">
+        {{ 'collections.general.all_categories' | t }}
+      </a>
+      {%- for block in section.blocks -%}
+        {%- if block.settings.collection != blank -%}
+          <a href="{{ block.settings.collection.url }}" class="filter-chip{% if collection.handle == block.settings.collection.handle %} active{% endif %}" {{ block.shopify_attributes }}>
+            {% render 'icon', name: block.settings.icon %}
+            {{ block.settings.collection.title }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%}
+      Filtros y orden. Los filtros los define la app gratuita "Search & Discovery"
+      de Shopify; si no hay ninguno configurado, solo se muestra el orden.
+    {%- endcomment -%}
+    <form class="facets" id="FacetForm" data-facet-form>
+      <div class="facets__bar">
+        <div class="facets__count">
+          {{ 'collections.general.product_count' | t: count: collection.products_count }}
+        </div>
+
+        <div class="facets__controls">
+          {%- if has_facets -%}
+            <button
+              type="button"
+              class="facets__toggle"
+              data-facet-toggle
+              aria-expanded="false"
+              aria-controls="FacetPanels"
+            >
+              {{ 'collections.filters.title' | t }}
+              {%- if active_filter_count > 0 -%}
+                <span class="facet__badge">{{ active_filter_count }}</span>
+              {%- endif -%}
+            </button>
+          {%- endif -%}
+
+          {%- if collection.sort_options.size > 0 -%}
+            <div class="facets__sort">
+              <label for="SortBy">{{ 'collections.sorting.title' | t }}</label>
+              <select name="sort_by" id="SortBy" data-facet-input>
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>
+                    {{ option.name }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if has_facets -%}
+        <div
+          class="facets__panels"
+          id="FacetPanels"
+          data-facet-panels
+          {% if active_filter_count > 0 %}data-facet-open{% endif %}
+          hidden
+        >
+          {%- for filter in collection.filters -%}
+            <details class="facet" {% if filter.active_values.size > 0 %}open{% endif %}>
+              <summary class="facet__summary">
+                {{ filter.label }}
+                {%- if filter.active_values.size > 0 -%}
+                  <span class="facet__badge">{{ filter.active_values.size }}</span>
+                {%- endif -%}
+              </summary>
+
+              <div class="facet__body">
+                {%- case filter.type -%}
+                  {%- when 'price_range' -%}
+                    <div class="facet__price">
+                      <label class="facet__price-field">
+                        <span>{{ 'collections.filters.from' | t }}</span>
+                        <input
+                          type="number"
+                          name="{{ filter.min_value.param_name }}"
+                          value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          inputmode="decimal"
+                          data-facet-input
+                        >
+                      </label>
+                      <label class="facet__price-field">
+                        <span>{{ 'collections.filters.to' | t }}</span>
+                        <input
+                          type="number"
+                          name="{{ filter.max_value.param_name }}"
+                          value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          inputmode="decimal"
+                          data-facet-input
+                        >
+                      </label>
+                    </div>
+
+                  {%- else -%}
+                    <ul class="facet__list">
+                      {%- for value in filter.values -%}
+                        <li>
+                          <label class="facet__option{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                            <input
+                              type="checkbox"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              {% if value.active %}checked{% endif %}
+                              {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                              data-facet-input
+                            >
+                            <span>{{ value.label }}</span>
+                            <span class="facet__option-count">{{ value.count }}</span>
+                          </label>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                {%- endcase -%}
+              </div>
+            </details>
+          {%- endfor -%}
+
+          <noscript>
+            <button type="submit" class="btn btn-primary btn-sm">{{ 'collections.filters.apply' | t }}</button>
+          </noscript>
+        </div>
+
+        {%- if active_filter_count > 0 -%}
+          <div class="facets__active">
+            {%- for filter in collection.filters -%}
+              {%- for value in filter.active_values -%}
+                <a href="{{ value.url_to_remove }}" class="facet-pill">
+                  {{ filter.label }}: {{ value.label }}
+                  <span aria-hidden="true">&times;</span>
+                </a>
+              {%- endfor -%}
+
+              {%- if filter.type == 'price_range' -%}
+                {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                  <a href="{{ filter.url_to_remove }}" class="facet-pill">
+                    {{ filter.label }}
+                    <span aria-hidden="true">&times;</span>
+                  </a>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            <a href="{{ collection.url }}?sort_by={{ sort_by }}" class="facet-pill facet-pill--clear">
+              {{ 'collections.filters.clear_all' | t }}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </form>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      {%- if collection.products.size > 0 -%}
+        <div class="product-grid">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="pagination">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr;</a>{%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}
+                <span class="current">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">&rarr;</a>{%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="empty-state">
+          <p>{{ 'collections.general.no_products' | t }}</p>
+          <a href="{{ pages['contacto'].url | default: '/pages/contacto' }}" class="btn btn-outline">
+            {{ 'collections.general.ask_availability' | t }}
+          </a>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadrícula de productos",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "label": "Productos por página", "min": 8, "max": 24, "step": 4, "default": 12 }
+  ],
+  "blocks": [
+    {
+      "type": "category_filter",
+      "name": "Filtro de categoría",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Colección" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "equipo-medico",
+          "options": [
+            { "value": "oxigenoterapia", "label": "Oxigenoterapia" },
+            { "value": "apnea-del-sueno", "label": "Apnea del sueño" },
+            { "value": "ortopedia", "label": "Ortopedia" },
+            { "value": "equipo-medico", "label": "Equipo médico" },
+            { "value": "reguladores", "label": "Reguladores" },
+            { "value": "camas", "label": "Camas y colchones" },
+            { "value": "ventilacion", "label": "Ventilación mecánica" },
+            { "value": "renta", "label": "Renta" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}

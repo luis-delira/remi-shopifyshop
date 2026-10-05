@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "trust-1": {
+          "type": "trust_item",
+          "settings": { "icon": "shield", "text": "Pago 100% seguro" }
+        },
+        "trust-2": {
+          "type": "trust_item",
+          "settings": { "icon": "truck", "text": "Envíos a todo México en 2-3 días hábiles" }
+        },
+        "trust-3": {
+          "type": "trust_item",
+          "settings": { "icon": "award", "text": "Garantía y soporte incluidos" }
+        }
+      },
+      "block_order": ["trust-1", "trust-2", "trust-3"],
+      "settings": { "show_related": true }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,22 @@
+<section class="catalog-cta">
+  <div class="container catalog-cta__inner">
+    <div>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.text }}</p>
+    </div>
+    <a href="{{ section.settings.button_link }}" class="btn btn-accent">{{ section.settings.button_label }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA de catálogo",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "¿No encuentras lo que buscas?" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Contamos con más equipo disponible bajo pedido. Cuéntanos qué necesitas." },
+    { "type": "text", "id": "button_label", "label": "Texto del botón", "default": "Solicitar cotización" },
+    { "type": "url", "id": "button_link", "label": "Enlace del botón" }
+  ],
+  "presets": [{ "name": "CTA de catálogo" }]
+}
+{% endschema %}

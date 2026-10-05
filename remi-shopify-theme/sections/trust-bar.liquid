@@ -1,0 +1,55 @@
+<section class="trust-strip">
+  <div class="container trust-strip__inner">
+    {%- for block in section.blocks -%}
+      <div class="trust-strip__item" {{ block.shopify_attributes }}>
+        <div class="trust-strip__icon">{% render 'icon', name: block.settings.icon %}</div>
+        <div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Franja de confianza",
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Punto de confianza",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "shield",
+          "options": [
+            { "value": "shield", "label": "Escudo" },
+            { "value": "truck", "label": "Camión" },
+            { "value": "award", "label": "Medalla" },
+            { "value": "headset", "label": "Auriculares" },
+            { "value": "check", "label": "Check" },
+            { "value": "clock", "label": "Reloj" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Título", "default": "Pago 100% seguro" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Transacciones protegidas con los principales métodos de pago del país." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Franja de confianza",
+      "blocks": [
+        { "type": "point", "settings": { "icon": "shield", "title": "Pago 100% seguro", "text": "Transacciones protegidas con los principales métodos de pago del país." } },
+        { "type": "point", "settings": { "icon": "truck", "title": "Envíos a todo México", "text": "Entrega en 2 a 3 días hábiles, con seguimiento de tu pedido." } },
+        { "type": "point", "settings": { "icon": "award", "title": "Marcas certificadas", "text": "Trabajamos con ResMed, Inogen y Handy, líderes en equipo médico." } },
+        { "type": "point", "settings": { "icon": "headset", "title": "Asesoría personalizada", "text": "Un equipo humano te orienta para elegir el equipo correcto." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

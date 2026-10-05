@@ -1,0 +1,219 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  capture wa_product_text
+    echo 'Hola, me interesa el producto: '
+    echo product.title
+    echo ' — '
+    echo shop.url
+    echo product.url
+  endcapture
+  assign wa_product_text = wa_product_text | url_encode
+-%}
+
+<nav class="breadcrumbs container" aria-label="{{ 'general.breadcrumbs.label' | t }}">
+  <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t }}</a>
+  <span aria-hidden="true">/</span>
+  {%- if collection -%}
+    <a href="{{ collection.url }}">{{ collection.title }}</a>
+    <span aria-hidden="true">/</span>
+  {%- else -%}
+    <a href="{{ routes.all_products_collection_url }}">{{ 'general.breadcrumbs.catalog' | t }}</a>
+    <span aria-hidden="true">/</span>
+  {%- endif -%}
+  <span aria-current="page">{{ product.title }}</span>
+</nav>
+
+<section class="container product-detail">
+  <div class="product-detail__media">
+    {%- if product.media.size > 0 -%}
+      <div class="product-gallery" data-product-gallery>
+        <div class="product-gallery__stage">
+          {%- for media in product.media -%}
+            <div class="product-gallery__slide{% if forloop.first %} is-active{% endif %}" data-gallery-slide="{{ forloop.index0 }}">
+              {% render 'responsive-image',
+                 image: media.preview_image,
+                 alt: product.title,
+                 sizes: '(max-width: 900px) 100vw, 560px',
+                 widths: '560,840,1120',
+                 priority: forloop.first %}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <div class="product-gallery__thumbs" role="group" aria-label="{{ 'products.product.gallery' | t }}">
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-gallery-thumb="{{ forloop.index0 }}"
+                aria-label="{{ 'products.product.gallery_image' | t: index: forloop.index }}"
+                {% if forloop.first %}aria-current="true"{% endif %}
+              >
+                {% render 'responsive-image',
+                   image: media.preview_image,
+                   alt: '',
+                   sizes: '86px',
+                   widths: '86,172' %}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="icon-placeholder product-detail__placeholder">
+        {% render 'icon', name: 'equipo-medico' %}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="product-detail__info">
+    {%- if product.vendor != blank -%}
+      <span class="product-detail__brand">{{ product.vendor }}</span>
+    {%- endif -%}
+    <h1>{{ product.title }}</h1>
+
+    <div class="product-detail__price" data-product-price>
+      {%- if current_variant.compare_at_price > current_variant.price -%}
+        <span class="product-card__price--compare">{{ current_variant.compare_at_price | money }}</span>
+      {%- endif -%}
+      {{ current_variant.price | money }}
+    </div>
+
+    <div class="product-detail__description rte">{{ product.description }}</div>
+
+    {%- form 'product', product, id: 'ProductForm', novalidate: 'novalidate' -%}
+      {%- unless product.has_only_default_variant -%}
+        <div class="product-detail__variants">
+          <label for="ProductVariantSelect">{{ 'products.product.options' | t }}</label>
+          <select id="ProductVariantSelect" name="id" class="product-variant-select" data-variant-select>
+            {%- for variant in product.variants -%}
+              <option
+                value="{{ variant.id }}"
+                data-price="{{ variant.price | money }}"
+                data-compare-price="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
+                data-available="{{ variant.available }}"
+                {% if variant == current_variant %}selected{% endif %}
+                {% unless variant.available %}disabled{% endunless %}
+              >
+                {{ variant.title }}{% unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- else -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {%- endunless -%}
+
+      <div class="product-detail__form">
+        <div class="product-detail__qty">
+          <label for="ProductQuantity">{{ 'products.product.quantity' | t }}</label>
+          <input type="number" id="ProductQuantity" name="quantity" value="1" min="1">
+        </div>
+        <button
+          type="submit"
+          class="btn btn-accent product-detail__submit"
+          data-add-to-cart
+          data-label-available="{{ 'products.product.add_to_cart' | t }}"
+          data-label-sold-out="{{ 'products.product.sold_out' | t }}"
+          {% unless product.available %}disabled{% endunless %}
+        >
+          {%- if product.available -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.product.unavailable' | t }}
+          {%- endif -%}
+        </button>
+      </div>
+    {%- endform -%}
+
+    {%- if settings.whatsapp_number != blank -%}
+      <a
+        class="btn btn-outline product-detail__whatsapp"
+        href="https://wa.me/{{ settings.whatsapp_number }}?text={{ wa_product_text }}"
+        target="_blank"
+        rel="noopener"
+      >
+        {{ 'products.product.quote_whatsapp' | t }}
+      </a>
+    {%- endif -%}
+
+    <div class="product-detail__trust">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'trust_item' -%}
+          <div {{ block.shopify_attributes }}>
+            {% render 'icon', name: block.settings.icon %}
+            {{ block.settings.text }}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.show_related -%}
+  {%- assign related_collection = product.collections.first -%}
+  {%- if related_collection and related_collection.products.size > 1 -%}
+    <section class="section related-products">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">{{ 'products.product.related_eyebrow' | t }}</span>
+          <h2 class="section-title">{{ 'products.product.related' | t }}</h2>
+        </div>
+        <div class="product-grid">
+          {%- assign shown = 0 -%}
+          {%- for related in related_collection.products -%}
+            {%- if related.id != product.id and shown < 4 -%}
+              {% render 'product-card', product: related %}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Producto",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Mostrar productos relacionados",
+      "info": "Muestra hasta 4 productos de la misma colección.",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Garantía / confianza",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "shield",
+          "options": [
+            { "value": "shield", "label": "Escudo" },
+            { "value": "truck", "label": "Envío" },
+            { "value": "award", "label": "Garantía" },
+            { "value": "headset", "label": "Asesoría" },
+            { "value": "check", "label": "Palomita" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Garantía y soporte incluidos"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5
+}
+{% endschema %}

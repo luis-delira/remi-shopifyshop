@@ -1,0 +1,40 @@
+<section class="section container">
+  <div class="section-head">
+    <span class="eyebrow">Búsqueda</span>
+    <h1 class="section-title">
+      {%- if search.performed -%}
+        Resultados para &ldquo;{{ search.terms }}&rdquo;
+      {%- else -%}
+        {{ 'general.search.placeholder' | t }}
+      {%- endif -%}
+    </h1>
+  </div>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" class="field" style="max-width:420px; margin-bottom:32px;">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+    <input type="hidden" name="type" value="product">
+  </form>
+
+  {%- if search.performed -%}
+    {%- if search.results_count > 0 -%}
+      <div class="product-grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', product: item %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="empty-state">
+        <p>No encontramos resultados para tu búsqueda.</p>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Búsqueda",
+  "settings": []
+}
+{% endschema %}

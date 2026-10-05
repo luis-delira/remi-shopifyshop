@@ -1,0 +1,447 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "Desde 2016",
+            "label": "al servicio de la salud"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "15",
+            "label": "profesionales a tu servicio"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "3",
+            "label": "sucursales en Aguascalientes"
+          }
+        },
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "asset": "carrusel-1",
+            "alt": "Quirófano equipado con cama hospitalaria, ventilador, monitores y carros de curación. Texto: las herramientas que tu equipo profesional necesita, solo en REMI. Renta de equipo médico e insumos.",
+            "link": "/pages/renta-de-equipo-medico",
+            "asset_mobile_ratio": "0.5143",
+            "asset_ratio": "2.0236"
+          }
+        },
+        "promo-1": {
+          "type": "promo",
+          "settings": {
+            "eyebrow": "Promoción por tiempo limitado",
+            "heading": "Duerme mejor y paga menos",
+            "text": "Descuento en nuestra línea CPAP, con mascarilla incluida, garantía y asesoría para configurar tu terapia.",
+            "deadline": "2026-10-31 23:59",
+            "ended_text": "Esta promoción ya terminó. Pregúntanos por las vigentes.",
+            "products": [
+              "cpap-resmed-airsense-11-autoset-con-mascarilla-yuwell",
+              "cpap-resmed-airsense-10-autoset-con-mascarilla-yuwell",
+              "cpap-portatil-resmed-airmini-autoset-con-mascarilla-yuwell"
+            ],
+            "button_label": "Ver todos los CPAP",
+            "button_link": "/collections/apnea-del-sueno"
+          }
+        },
+        "renta-1": {
+          "type": "renta",
+          "settings": {
+            "eyebrow": "Renta en Aguascalientes",
+            "heading": "¿Lo necesitas solo unas semanas? Réntalo",
+            "text": "Tanques de oxígeno con regulador, cánula y vaso humidificador, listos para usar. Sin comprar un equipo que quizá solo ocupas un tiempo.",
+            "step_1": "Escríbenos y cuéntanos qué necesitas",
+            "step_2": "Te orientamos y te pasamos la cotización",
+            "step_3": "Coordinamos la entrega desde tu sucursal más cercana",
+            "product": "tanque-de-oxigeno-portatil-680-litros-con-carrito-y-regulador",
+            "badge": "Con regulador, cánula y vaso humidificador",
+            "whatsapp_label": "Cotizar por WhatsApp",
+            "whatsapp_message": "Hola, quiero información sobre la renta de tanques de oxígeno.",
+            "button_label": "Ver todo lo que rentamos",
+            "button_link": "/pages/renta-de-equipo-medico"
+          }
+        }
+      },
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3",
+        "slide-1",
+        "promo-1",
+        "renta-1"
+      ],
+      "settings": {
+        "button_link": "shopify://collections/all",
+        "button_2_link": "shopify://pages/contacto",
+        "autoplay_seconds": 6
+      }
+    },
+    "trust-bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "point-1": {
+          "type": "point",
+          "settings": {
+            "icon": "shield",
+            "title": "Pago 100% seguro",
+            "text": "Transacciones protegidas con los principales métodos de pago del país."
+          }
+        },
+        "point-2": {
+          "type": "point",
+          "settings": {
+            "icon": "truck",
+            "title": "Envíos a todo México",
+            "text": "Entrega en 2 a 3 días hábiles, con seguimiento de tu pedido."
+          }
+        },
+        "point-3": {
+          "type": "point",
+          "settings": {
+            "icon": "award",
+            "title": "Marcas certificadas",
+            "text": "Trabajamos con ResMed, Inogen y Handy, líderes en equipo médico."
+          }
+        },
+        "point-4": {
+          "type": "point",
+          "settings": {
+            "icon": "headset",
+            "title": "Asesoría personalizada",
+            "text": "Un equipo humano te orienta para elegir el equipo correcto."
+          }
+        }
+      },
+      "block_order": [
+        "point-1",
+        "point-2",
+        "point-3",
+        "point-4"
+      ]
+    },
+    "category-grid": {
+      "type": "category-grid",
+      "blocks": {
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "collection": "concentradores-de-oxigeno",
+            "icon": "oxigenoterapia",
+            "title": "Concentradores de Oxígeno",
+            "text": "Concentradores estacionarios y portátiles, filtros y baterías de repuesto.",
+            "asset": "categoria-concentradores.png"
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "collection": "apnea-del-sueno",
+            "icon": "apnea-del-sueno",
+            "title": "Apnea del Sueño",
+            "text": "Equipos CPAP, BiPAP y mascarillas para dormir y descansar mejor.",
+            "asset": "categoria-apnea.png"
+          }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": {
+            "collection": "camas-hospitalarias-y-colchones",
+            "icon": "camas",
+            "title": "Camas Hospitalarias y Colchones",
+            "text": "Camas clínicas manuales y eléctricas, colchones seccionados y antiescaras.",
+            "asset": "categoria-camas.png"
+          }
+        },
+        "cat-4": {
+          "type": "category",
+          "settings": {
+            "collection": "tanques-de-oxigeno-y-reguladores",
+            "icon": "reguladores",
+            "title": "Tanques y Reguladores",
+            "text": "Tanques de oxígeno medicinal de distintas capacidades y reguladores CGA-540.",
+            "asset": "categoria-tanques.png"
+          }
+        },
+        "cat-5": {
+          "type": "category",
+          "settings": {
+            "collection": "ventilacion-mecanica",
+            "icon": "ventilacion",
+            "title": "Ventilación Mecánica",
+            "text": "Ventiladores, sistemas de alto flujo y sus consumibles originales.",
+            "asset": "categoria-ventilacion.png"
+          }
+        }
+      },
+      "block_order": [
+        "cat-1",
+        "cat-2",
+        "cat-3",
+        "cat-4",
+        "cat-5"
+      ]
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {
+        "view_all_link": "shopify://collections/all"
+      },
+      "blocks": {
+        "dest-1": {
+          "type": "product",
+          "settings": {
+            "product": "cpap-resmed-airsense-11-autoset-con-mascarilla-yuwell"
+          }
+        },
+        "dest-2": {
+          "type": "product",
+          "settings": {
+            "product": "cpap-resmed-airsense-10-autoset-con-mascarilla-yuwell"
+          }
+        },
+        "dest-3": {
+          "type": "product",
+          "settings": {
+            "product": "concentrador-de-oxigeno-portatil-inogen-one-g5-con-bateria-de-8-celdas"
+          }
+        },
+        "dest-4": {
+          "type": "product",
+          "settings": {
+            "product": "tanque-de-oxigeno-9-500-litros-lleno-con-regulador"
+          }
+        }
+      },
+      "block_order": [
+        "dest-1",
+        "dest-2",
+        "dest-3",
+        "dest-4"
+      ]
+    },
+    "why-us": {
+      "type": "why-us",
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "text": "Asesoría antes, durante y después de tu compra."
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "text": "Equipos originales, con garantía y refacciones disponibles."
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "text": "Opciones de compra y renta según tu presupuesto."
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "text": "Tres sucursales en Aguascalientes y envíos a todo el país."
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4"
+      ],
+      "settings": {
+        "button_link": "shopify://pages/nosotros"
+      }
+    },
+    "brands": {
+      "type": "brands",
+      "blocks": {
+        "marca-1": {
+          "type": "brand",
+          "settings": {
+            "name": "ResMed",
+            "asset": "marca-resmed.png",
+            "width": 572
+          }
+        },
+        "marca-2": {
+          "type": "brand",
+          "settings": {
+            "name": "Inogen",
+            "asset": "marca-inogen.png",
+            "width": 360
+          }
+        },
+        "marca-3": {
+          "type": "brand",
+          "settings": {
+            "name": "Philips",
+            "asset": "marca-philips.png",
+            "width": 343
+          }
+        },
+        "marca-4": {
+          "type": "brand",
+          "settings": {
+            "name": "Drive",
+            "asset": "marca-drive.svg",
+            "width": 316
+          }
+        },
+        "marca-5": {
+          "type": "brand",
+          "settings": {
+            "name": "Companion",
+            "asset": "marca-companion.png",
+            "width": 500
+          }
+        },
+        "marca-6": {
+          "type": "brand",
+          "settings": {
+            "name": "Yuwell",
+            "asset": "marca-yuwell.png",
+            "width": 425
+          }
+        }
+      },
+      "block_order": [
+        "marca-1",
+        "marca-2",
+        "marca-3",
+        "marca-4",
+        "marca-5",
+        "marca-6"
+      ]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t-1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Laura M.",
+            "role": "Aguascalientes, AGS",
+            "text": "Compré el CPAP para mi papá y la atención fue excelente desde la asesoría hasta la entrega. Se nota que conocen bien los equipos.",
+            "rating": 5
+          }
+        },
+        "t-2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Roberto S.",
+            "role": "Guadalajara, JAL",
+            "text": "Rentamos una cama clínica por dos meses y el proceso fue muy sencillo, con entrega puntual y equipo en perfectas condiciones.",
+            "rating": 5
+          }
+        },
+        "t-3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Diana C.",
+            "role": "Ciudad de México, CDMX",
+            "text": "El envío llegó antes de lo esperado y el concentrador de oxígeno funciona perfecto. Definitivamente volvería a comprar con ellos.",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "t-1",
+        "t-2",
+        "t-3"
+      ],
+      "settings": {
+        "max_visible": 6,
+        "all_label": "Ver más testimonios",
+        "all_link": "/pages/testimonios",
+        "review_label": "Deja tu reseña",
+        "review_link": "/pages/testimonios#ReviewForm"
+      }
+    },
+    "cta-banner": {
+      "type": "cta-banner",
+      "settings": {
+        "button_link": "shopify://pages/contacto"
+      }
+    },
+    "clinicas": {
+      "type": "brands",
+      "blocks": {
+        "clinica-1": {
+          "type": "brand",
+          "settings": {
+            "name": "Centro Médico La Salud",
+            "asset": "clinica-la-salud.png",
+            "width": 225
+          }
+        },
+        "clinica-2": {
+          "type": "brand",
+          "settings": {
+            "name": "Clínica La Central",
+            "asset": "clinica-la-central.png",
+            "width": 114
+          }
+        },
+        "clinica-3": {
+          "type": "brand",
+          "settings": {
+            "name": "Hospitales MAC",
+            "asset": "clinica-mac.png",
+            "width": 174
+          }
+        },
+        "clinica-4": {
+          "type": "brand",
+          "settings": {
+            "name": "Clínica y Maternidad Casa Blanca",
+            "asset": "clinica-casa-blanca.png",
+            "width": 120
+          }
+        },
+        "clinica-5": {
+          "type": "brand",
+          "settings": {
+            "name": "Clínica San Telmo",
+            "asset": "clinica-san-telmo.png",
+            "width": 120
+          }
+        }
+      },
+      "block_order": [
+        "clinica-1",
+        "clinica-2",
+        "clinica-3",
+        "clinica-4",
+        "clinica-5"
+      ],
+      "settings": {
+        "label": "Damos servicio a clínicas y hospitales de Aguascalientes",
+        "logo_height": 58,
+        "show_names": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust-bar",
+    "category-grid",
+    "featured-products",
+    "why-us",
+    "brands",
+    "testimonials",
+    "clinicas",
+    "cta-banner"
+  ]
+}

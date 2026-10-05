@@ -1,0 +1,19 @@
+<section class="contact-hero">
+  <div class="container">
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h1>{{ section.settings.heading }}</h1>
+    <p>{{ section.settings.text }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero de contacto",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Contacto" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Hablemos sobre el equipo médico que necesitas" },
+    { "type": "textarea", "id": "text", "label": "Descripción", "default": "Responde nuestro formulario o escríbenos directo por WhatsApp. Un asesor te contactará en menos de 24 horas hábiles, sin costo ni compromiso." }
+  ],
+  "presets": [{ "name": "Hero de contacto" }]
+}
+{% endschema %}

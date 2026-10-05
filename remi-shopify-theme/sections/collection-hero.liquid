@@ -1,0 +1,25 @@
+<section class="catalog-hero">
+  <div class="container">
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h1>{{ collection.title | default: section.settings.heading }}</h1>
+    <p>
+      {%- if collection.description != blank -%}
+        {{ collection.description }}
+      {%- else -%}
+        {{ section.settings.text }}
+      {%- endif -%}
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Encabezado de catálogo",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Catálogo" },
+    { "type": "text", "id": "heading", "label": "Título por defecto", "default": "Equipo médico certificado para ti y tu familia" },
+    { "type": "textarea", "id": "text", "label": "Texto por defecto", "default": "Filtra por categoría para encontrar el equipo que necesitas. Todos nuestros productos cuentan con garantía y asesoría de nuestro equipo." }
+  ],
+  "presets": [{ "name": "Encabezado de catálogo" }]
+}
+{% endschema %}

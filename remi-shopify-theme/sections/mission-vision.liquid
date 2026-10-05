@@ -1,0 +1,27 @@
+<section class="section mission">
+  <div class="container mission__grid">
+    <div class="mission-card">
+      <div class="mission-card__icon">{% render 'icon', name: 'mission' %}</div>
+      <h3>{{ section.settings.mission_title }}</h3>
+      <p>{{ section.settings.mission_text }}</p>
+    </div>
+    <div class="mission-card">
+      <div class="mission-card__icon">{% render 'icon', name: 'vision' %}</div>
+      <h3>{{ section.settings.vision_title }}</h3>
+      <p>{{ section.settings.vision_text }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Misión y visión",
+  "settings": [
+    { "type": "text", "id": "mission_title", "label": "Título de misión", "default": "Misión" },
+    { "type": "textarea", "id": "mission_text", "label": "Texto de misión", "default": "Facilitar el acceso a equipo médico confiable, ofreciendo asesoría honesta y soluciones de compra o renta adaptadas a cada necesidad de salud." },
+    { "type": "text", "id": "vision_title", "label": "Título de visión", "default": "Visión" },
+    { "type": "textarea", "id": "vision_text", "label": "Texto de visión", "default": "Ser la empresa de referencia en equipo médico en el centro del país, reconocida por su cercanía, calidad y compromiso con el bienestar de sus clientes." }
+  ],
+  "presets": [{ "name": "Misión y visión" }]
+}
+{% endschema %}

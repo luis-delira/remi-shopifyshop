@@ -1,0 +1,99 @@
+{%- comment -%}
+  Formulario para dejar una reseña.
+
+  Usa el formulario de contacto nativo de Shopify, asi que la reseña llega al
+  correo de notificaciones de la tienda. No se publica sola: alguien la revisa y
+  la agrega como bloque en la seccion de Testimonios. Es a proposito — evita que
+  cualquiera publique texto directo en el sitio de un negocio de salud.
+{%- endcomment -%}
+
+<section class="section review-form-section">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}
+        <p class="section-sub">{{ section.settings.text }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="review-form card">
+      {%- form 'contact', id: 'ReviewForm' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="contact-form__success">
+            {% render 'icon', name: 'check-circle' %}
+            <h3>{{ 'reviews.success_title' | t }}</h3>
+            <p>{{ 'reviews.success_text' | t }}</p>
+          </div>
+        {%- else -%}
+          {%- if form.errors -%}
+            <p class="field__error">{{ 'reviews.error' | t }}</p>
+          {%- endif -%}
+
+          <input type="hidden" name="contact[tipo]" value="Reseña de cliente">
+
+          <div class="field-row">
+            <div class="field">
+              <label for="ReviewName">{{ 'reviews.name' | t }}</label>
+              <input type="text" id="ReviewName" name="contact[name]" value="{{ form.name }}" required>
+            </div>
+            <div class="field">
+              <label for="ReviewCity">{{ 'reviews.city' | t }}</label>
+              <input type="text" id="ReviewCity" name="contact[ciudad]" placeholder="{{ 'reviews.city_placeholder' | t }}">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ReviewEmail">{{ 'reviews.email' | t }}</label>
+            <input type="email" id="ReviewEmail" name="contact[email]" value="{{ form.email }}" required>
+          </div>
+
+          <div class="field">
+            <span class="review-rating__label">{{ 'reviews.rating' | t }}</span>
+            {%- comment -%}
+              Estrellas con radios: funcionan sin JavaScript y son navegables con teclado.
+              El orden invertido en el HTML permite pintar las anteriores con CSS.
+            {%- endcomment -%}
+            <div class="review-rating">
+              {%- for i in (1..5) -%}
+                {%- assign valor = 6 | minus: i -%}
+                <input
+                  class="visually-hidden"
+                  type="radio"
+                  id="ReviewStar{{ valor }}"
+                  name="contact[calificacion]"
+                  value="{{ valor }}"
+                  {% if valor == 5 %}checked{% endif %}
+                >
+                <label for="ReviewStar{{ valor }}" title="{{ valor }}">
+                  {% render 'icon', name: 'star' %}
+                  <span class="visually-hidden">{{ valor }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ReviewBody">{{ 'reviews.message' | t }}</label>
+            <textarea id="ReviewBody" name="contact[body]" rows="5" required placeholder="{{ 'reviews.message_placeholder' | t }}"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-accent contact-form__submit">{{ 'reviews.submit' | t }}</button>
+          <p class="review-form__note">{{ 'reviews.note' | t }}</p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Formulario de reseña",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "Tu opinión" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Cuéntanos cómo te fue" },
+    { "type": "textarea", "id": "text", "label": "Descripción", "default": "Tu experiencia ayuda a otras familias a elegir con más confianza." }
+  ],
+  "presets": [{ "name": "Formulario de reseña" }]
+}
+{% endschema %}

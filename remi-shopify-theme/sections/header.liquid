@@ -1,0 +1,412 @@
+{%- comment -%}
+  Encabezado centrado en dos filas:
+    fila 1  buscador | marca (centrada) | carrito
+    fila 2  navegacion centrada + boton de cotizacion
+  Los enlaces del menu que tengan subenlaces se muestran como desplegable.
+{%- endcomment -%}
+
+{%- assign header_logo = section.settings.logo | default: settings.logo_image -%}
+
+<header class="nav">
+  <div class="container nav__top">
+    <form class="nav__search" action="{{ routes.search_url }}" method="get" role="search">
+      <label class="visually-hidden" for="NavSearch">{{ 'general.search.placeholder' | t }}</label>
+      <span class="nav__search-icon" aria-hidden="true">{% render 'icon', name: 'search' %}</span>
+      <input
+        id="NavSearch"
+        class="nav__search-input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'general.search.placeholder' | t }}"
+        autocomplete="off"
+      >
+      <input type="hidden" name="type" value="product">
+      <button type="submit" class="visually-hidden">{{ 'general.search.submit' | t }}</button>
+    </form>
+
+    <a href="{{ routes.root_url }}" class="nav__brand">
+      {%- if header_logo -%}
+        <img class="nav__logo" src="{{ header_logo | image_url: width: 120 }}" alt="{{ shop.name }}" width="60" height="60">
+      {%- else -%}
+        <img class="nav__logo" src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" width="60" height="60">
+      {%- endif -%}
+      <span class="nav__brand-text">{{ section.settings.brand_prefix }} <strong>{{ section.settings.brand_suffix }}</strong></span>
+    </a>
+
+    <div class="nav__actions">
+      {%- comment -%}
+        Selector de moneda. Shopify liga la moneda al pais del comprador, asi que
+        el formulario envia country_code y se muestra el codigo de su moneda.
+        Solo aparece si hay mas de un pais activo en Configuracion -> Mercados.
+      {%- endcomment -%}
+      {%- if section.settings.show_currency and localization.available_countries.size > 1 -%}
+        <form method="post" action="{{ routes.root_url }}localization" id="HeaderCurrency" accept-charset="UTF-8" class="nav__currency" enctype="multipart/form-data">
+          <input type="hidden" name="form_type" value="localization">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="_method" value="put">
+          <input type="hidden" name="return_to" value="{{ request.path }}">
+          <label class="visually-hidden" for="HeaderCurrencySelect">{{ 'general.currency.label' | t }}</label>
+          <select id="HeaderCurrencySelect" name="country_code" data-currency-select>
+            {%- for country in localization.available_countries -%}
+              <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                {{ country.currency.iso_code }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </form>
+      {%- endif -%}
+
+      {%- comment -%}
+        Acceso a asesoria por WhatsApp. Vive en la fila superior, que es la que
+        permanece fija al hacer scroll, asi que sigue visible con el encabezado
+        comprimido (ahi se reduce a icono + una linea).
+      {%- endcomment -%}
+      {%- if settings.whatsapp_number != blank -%}
+        {%- assign wa_asesoria = section.settings.whatsapp_message | default: settings.whatsapp_message -%}
+        <a
+          class="nav__wa"
+          href="https://wa.me/{{ settings.whatsapp_number }}?text={{ wa_asesoria | url_encode }}"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="nav__wa-icon">{% render 'icon', name: 'whatsapp' %}</span>
+          <span class="nav__wa-text">
+            <strong>{{ section.settings.whatsapp_title }}</strong>
+            <span>{{ section.settings.whatsapp_subtitle }}</span>
+          </span>
+          <span class="nav__wa-short">{{ section.settings.whatsapp_short }}</span>
+        </a>
+      {%- endif -%}
+
+      <a href="{{ routes.cart_url }}" class="nav__cart" aria-label="{{ 'cart.general.title' | t }}">
+        {% render 'icon', name: 'cart' %}
+        {%- if cart.item_count > 0 -%}
+          <span class="nav__cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="NavLinks" aria-label="{{ 'accessibility.menu' | t }}">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container nav__bottom">
+    <nav class="nav__links" id="NavLinks">
+      {%- comment -%}
+        El menu se arma con los bloques de esta seccion. Si se borran todos,
+        cae de vuelta al menu de Navegacion de Shopify (ajuste "Menu de navegacion"),
+        que tambien soporta desplegables si el enlace tiene subenlaces.
+      {%- endcomment -%}
+
+      {%- if section.blocks.size > 0 -%}
+        {%- assign posiciones = '1,2,3,4,5,6' | split: ',' -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'dropdown' -%}
+            <div class="nav__item" data-dropdown {{ block.shopify_attributes }}>
+              <button type="button" class="nav__link nav__link--toggle" aria-expanded="false" data-dropdown-toggle>
+                {{ block.settings.label }}
+                {% render 'icon', name: 'chevron-down' %}
+              </button>
+              <div class="nav__dropdown" data-dropdown-panel>
+                {%- for n in posiciones -%}
+                  {%- assign clave_texto = 'child_' | append: n | append: '_label' -%}
+                  {%- assign clave_url = 'child_' | append: n | append: '_url' -%}
+                  {%- assign texto = block.settings[clave_texto] -%}
+                  {%- if texto != blank -%}
+                    <a href="{{ block.settings[clave_url] | default: '#' }}">{{ texto }}</a>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- else -%}
+            <a href="{{ block.settings.url | default: '#' }}" class="nav__link" {{ block.shopify_attributes }}>
+              {{ block.settings.label }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+
+      {%- else -%}
+        {%- for link in section.settings.menu.links -%}
+          {%- if link.links.size > 0 -%}
+            <div class="nav__item" data-dropdown>
+              <button
+                type="button"
+                class="nav__link nav__link--toggle{% if link.child_active %} active{% endif %}"
+                aria-expanded="false"
+                data-dropdown-toggle
+              >
+                {{ link.title }}
+                {% render 'icon', name: 'chevron-down' %}
+              </button>
+              <div class="nav__dropdown" data-dropdown-panel>
+                {%- for child in link.links -%}
+                  <a href="{{ child.url }}"{% if child.active %} class="active"{% endif %}>{{ child.title }}</a>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- else -%}
+            <a href="{{ link.url }}" class="nav__link{% if link.active %} active{% endif %}">{{ link.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ pages[section.settings.contact_page].url | default: '/pages/contacto' }}" class="btn btn-accent btn-sm nav__cta">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Encabezado",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logotipo (opcional)",
+      "info": "Si lo dejas vacío se usa el logotipo de Configuración del tema."
+    },
+    {
+      "type": "text",
+      "id": "brand_prefix",
+      "label": "Nombre (parte 1)",
+      "default": "REMI"
+    },
+    {
+      "type": "text",
+      "id": "brand_suffix",
+      "label": "Nombre (parte 2, resaltada)",
+      "default": "Equipo Médico"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú de navegación",
+      "info": "Solo se usa si esta sección no tiene bloques.",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto del botón de acción",
+      "default": "Solicitar cotización"
+    },
+    {
+      "type": "text",
+      "id": "contact_page",
+      "label": "Handle de la página de contacto",
+      "default": "contacto"
+    },
+    {
+      "type": "header",
+      "content": "Botón de WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_title",
+      "label": "Primera línea",
+      "default": "¿Necesitas asesoría para elegir tu equipo?"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_subtitle",
+      "label": "Segunda línea",
+      "default": "Toca aquí para hablar por WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_short",
+      "label": "Texto con el encabezado comprimido",
+      "info": "Versión corta que se muestra al hacer scroll y en celular.",
+      "default": "Asesoría por WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_message",
+      "label": "Mensaje que se envía",
+      "info": "Si lo dejas vacío se usa el mensaje general de Configuración del tema.",
+      "default": "Hola, necesito asesoría para elegir mi equipo médico."
+    },
+    {
+      "type": "header",
+      "content": "Moneda"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency",
+      "label": "Mostrar selector de moneda",
+      "info": "Requiere tener más de una moneda activa en Configuración → Mercados.",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Enlace",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Inicio"
+        },
+        {
+          "type": "text",
+          "id": "url",
+          "label": "Enlace",
+          "default": "/",
+          "info": "Ruta del sitio, por ejemplo /collections/all o /pages/nosotros"
+        }
+      ]
+    },
+    {
+      "type": "dropdown",
+      "name": "Menú desplegable",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Otros"
+        },
+        {
+          "type": "header",
+          "content": "Enlaces del desplegable"
+        },
+        {
+          "type": "text",
+          "id": "child_1_label",
+          "label": "Texto 1"
+        },
+        {
+          "type": "text",
+          "id": "child_1_url",
+          "label": "Enlace 1"
+        },
+        {
+          "type": "text",
+          "id": "child_2_label",
+          "label": "Texto 2"
+        },
+        {
+          "type": "text",
+          "id": "child_2_url",
+          "label": "Enlace 2"
+        },
+        {
+          "type": "text",
+          "id": "child_3_label",
+          "label": "Texto 3"
+        },
+        {
+          "type": "text",
+          "id": "child_3_url",
+          "label": "Enlace 3"
+        },
+        {
+          "type": "text",
+          "id": "child_4_label",
+          "label": "Texto 4"
+        },
+        {
+          "type": "text",
+          "id": "child_4_url",
+          "label": "Enlace 4"
+        },
+        {
+          "type": "text",
+          "id": "child_5_label",
+          "label": "Texto 5"
+        },
+        {
+          "type": "text",
+          "id": "child_5_url",
+          "label": "Enlace 5"
+        },
+        {
+          "type": "text",
+          "id": "child_6_label",
+          "label": "Texto 6"
+        },
+        {
+          "type": "text",
+          "id": "child_6_url",
+          "label": "Enlace 6"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "default": {
+    "blocks": [
+      {
+        "type": "link",
+        "settings": {
+          "label": "Inicio",
+          "url": "/"
+        }
+      },
+      {
+        "type": "dropdown",
+        "settings": {
+          "label": "Catálogo",
+          "child_1_label": "Concentradores de Oxígeno",
+          "child_1_url": "/collections/concentradores-de-oxigeno",
+          "child_2_label": "Apnea del Sueño",
+          "child_2_url": "/collections/apnea-del-sueno",
+          "child_3_label": "Camas Hospitalarias y Colchones",
+          "child_3_url": "/collections/camas-hospitalarias-y-colchones",
+          "child_4_label": "Tanques y Reguladores",
+          "child_4_url": "/collections/tanques-de-oxigeno-y-reguladores",
+          "child_5_label": "Ventilación Mecánica",
+          "child_5_url": "/collections/ventilacion-mecanica",
+          "child_6_label": "Ver todo el catálogo",
+          "child_6_url": "/collections/all"
+        }
+      },
+      {
+        "type": "link",
+        "settings": {
+          "label": "Ubicación",
+          "url": "/pages/ubicacion"
+        }
+      },
+      {
+        "type": "link",
+        "settings": {
+          "label": "Renta de equipo médico",
+          "url": "/pages/renta-de-equipo-medico"
+        }
+      },
+      {
+        "type": "dropdown",
+        "settings": {
+          "label": "Otros",
+          "child_1_label": "Blog",
+          "child_1_url": "/blogs/blog",
+          "child_2_label": "Política de privacidad",
+          "child_2_url": "/policies/privacy-policy",
+          "child_3_label": "Política de reembolso",
+          "child_3_url": "/policies/refund-policy",
+          "child_4_label": "Política de envío",
+          "child_4_url": "/policies/shipping-policy",
+          "child_5_label": "Términos y condiciones",
+          "child_5_url": "/policies/terms-of-service"
+        }
+      },
+      {
+        "type": "link",
+        "settings": {
+          "label": "Contacto",
+          "url": "/pages/contacto"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "locations": {
+      "type": "locations",
+      "blocks": {
+        "loc-1": {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Universidad",
+            "address": "Av. Universidad 316, San Cayetano, C.P. 20010, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/maE1vZzLB2B4T85V7"
+          }
+        },
+        "loc-2": {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Central",
+            "address": "Av. Aguascalientes Ote. 2408, Desarrollo Especial Ojocaliente, C.P. 20196, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/nQ8C5RZAviT8DXaE8"
+          }
+        },
+        "loc-3": {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Ojocaliente",
+            "address": "Av. Aguascalientes Ote., Los Conos 2602, C.P. 20196, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/Uhn2A5mbBWaG2Lpu5"
+          }
+        }
+      },
+      "block_order": [
+        "loc-1",
+        "loc-2",
+        "loc-3"
+      ],
+      "settings": {
+        "eyebrow": "Ubicación",
+        "heading": "Visítanos en Aguascalientes",
+        "text": "Tenemos tres sucursales en la ciudad. También enviamos a todo México."
+      }
+    },
+    "cta-banner": {
+      "type": "cta-banner",
+      "settings": {
+        "heading": "¿Necesitas ayuda para llegar?",
+        "text": "Escríbenos por WhatsApp y te indicamos la sucursal más cercana a ti.",
+        "button_label": "Solicitar cotización",
+        "button_link": "shopify://pages/contacto"
+      }
+    }
+  },
+  "order": [
+    "locations",
+    "cta-banner"
+  ]
+}

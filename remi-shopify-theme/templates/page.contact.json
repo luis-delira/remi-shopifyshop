@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "contact-hero": {
+      "type": "contact-hero"
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "blocks": {
+        "c-1": { "type": "category_option", "settings": { "label": "Oxigenoterapia" } },
+        "c-2": { "type": "category_option", "settings": { "label": "Apnea del Sueño" } },
+        "c-3": { "type": "category_option", "settings": { "label": "Ortopedia" } },
+        "c-4": { "type": "category_option", "settings": { "label": "Equipo Médico" } },
+        "c-5": { "type": "category_option", "settings": { "label": "Reguladores" } },
+        "c-6": { "type": "category_option", "settings": { "label": "Renta en Aguascalientes" } }
+      },
+      "block_order": ["c-1", "c-2", "c-3", "c-4", "c-5", "c-6"]
+    }
+  },
+  "order": ["contact-hero", "contact-form"]
+}

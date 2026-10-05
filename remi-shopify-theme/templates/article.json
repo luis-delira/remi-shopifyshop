@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article"
+    },
+    "cta-banner": {
+      "type": "cta-banner",
+      "settings": {
+        "button_link": "shopify://pages/contacto"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cta-banner"
+  ]
+}

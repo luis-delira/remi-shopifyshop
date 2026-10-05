@@ -1,0 +1,126 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Etiquetado \"{{ tags }}\"",
+      "page": "Página {{ page }}"
+    },
+    "search": {
+      "placeholder": "Buscar productos",
+      "submit": "Buscar"
+    },
+    "404": {
+      "title": "Página no encontrada",
+      "subtext": "La página que buscas no existe o fue movida.",
+      "link": "Volver al inicio"
+    },
+    "breadcrumbs": {
+      "label": "Ruta de navegación",
+      "home": "Inicio",
+      "catalog": "Productos"
+    },
+    "currency": {
+      "label": "Moneda"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Ir al contenido",
+    "close": "Cerrar",
+    "menu": "Abrir menú"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Agregar al carrito",
+      "sold_out": "Agotado",
+      "unavailable": "No disponible",
+      "quantity": "Cantidad",
+      "options": "Presentación",
+      "quote": "Cotizar",
+      "quote_whatsapp": "Cotizar por WhatsApp",
+      "view_details": "Ver detalles",
+      "vendor": "Marca",
+      "gallery": "Imágenes del producto",
+      "gallery_image": "Ver imagen {{ index }}",
+      "related": "También te puede interesar",
+      "related_eyebrow": "Productos relacionados"
+    }
+  },
+  "collections": {
+    "general": {
+      "all_categories": "Todos",
+      "no_products": "No encontramos productos en esta categoría por el momento.",
+      "ask_availability": "Pregúntanos por disponibilidad",
+      "product_count": {
+        "one": "{{ count }} producto",
+        "other": "{{ count }} productos"
+      }
+    },
+    "sorting": {
+      "title": "Ordenar por"
+    },
+    "filters": {
+      "title": "Filtros",
+      "apply": "Aplicar filtros",
+      "clear_all": "Quitar todos",
+      "from": "Desde",
+      "to": "Hasta"
+    }
+  },
+  "blogs": {
+    "general": {
+      "all_topics": "Todos los temas",
+      "read_more": "Leer más",
+      "no_articles": "Todavía no hay artículos publicados.",
+      "back_to_blog": "Volver al blog",
+      "ask_advisor": "Preguntar a un asesor"
+    },
+    "comments": {
+      "title": "Comentarios",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "message": "Comentario",
+      "submit": "Publicar comentario",
+      "success": "¡Gracias! Tu comentario se publicará una vez revisado.",
+      "error": "Revisa los campos marcados e intenta de nuevo."
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Tu carrito",
+      "empty": "Tu carrito está vacío",
+      "continue_shopping": "Seguir comprando",
+      "checkout": "Finalizar compra",
+      "subtotal": "Subtotal",
+      "remove": "Quitar"
+    }
+  },
+  "contact": {
+    "form": {
+      "title": "Solicita tu cotización",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "message": "Cuéntanos qué necesitas",
+      "message_placeholder": "Describe el equipo o la situación de salud que quieres resolver",
+      "send": "Enviar solicitud",
+      "success": "¡Gracias por contactarnos! Hemos recibido tu solicitud, un asesor se pondrá en contacto contigo muy pronto.",
+      "error": "Hubo un problema al enviar tu mensaje. Intenta de nuevo."
+    }
+  },
+  "reviews": {
+    "name": "Tu nombre",
+    "city": "Ciudad",
+    "city_placeholder": "Aguascalientes, AGS",
+    "email": "Correo electrónico",
+    "rating": "¿Cómo calificas tu experiencia?",
+    "message": "Tu reseña",
+    "message_placeholder": "Cuéntanos qué equipo compraste o rentaste y cómo te atendieron.",
+    "submit": "Enviar reseña",
+    "note": "Tu correo no se publica. Revisamos cada reseña antes de mostrarla en el sitio.",
+    "success_title": "¡Gracias por tu reseña!",
+    "success_text": "La revisaremos y, si todo está en orden, aparecerá en la página muy pronto.",
+    "error": "Revisa los campos marcados e inténtalo de nuevo."
+  },
+  "locations": {
+    "directions": "Cómo llegar"
+  }
+}

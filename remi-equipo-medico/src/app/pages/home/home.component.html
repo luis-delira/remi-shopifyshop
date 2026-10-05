@@ -1,0 +1,252 @@
+<!-- HERO ================================================================ -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <span class="eyebrow">Venta y renta de equipo médico</span>
+      <h1>Cuidamos tu salud con equipo médico en el que puedes confiar</h1>
+      <p class="hero__lead">
+        En Aguascalientes y en todo México, te acompañamos a elegir el equipo médico correcto:
+        oxigenoterapia, apnea del sueño, ortopedia y más, con marcas certificadas y asesoría real.
+      </p>
+      <div class="hero__actions">
+        <a routerLink="/productos" class="btn btn-accent">Ver productos</a>
+        <a routerLink="/contacto" class="btn btn-outline">Hablar con un asesor</a>
+      </div>
+
+      <div class="hero__stats">
+        @for (stat of heroStats; track stat.label) {
+          <div class="hero__stat">
+            <strong>{{ stat.value }}</strong>
+            <span>{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__card hero__card--main">
+        <div class="hero__card-icon">
+          <remi-category-icon icon="apnea-del-sueno" />
+        </div>
+        <h3>CPAP AirSense 11</h3>
+        <p>Terapia de sueño silenciosa con control por app.</p>
+        <span class="badge badge-teal">Más vendido</span>
+      </div>
+      <div class="hero__card hero__card--float hero__card--top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div>
+          <strong>Garantía real</strong>
+          <span>en todos los equipos</span>
+        </div>
+      </div>
+      <div class="hero__card hero__card--float hero__card--bottom">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="7" width="16" height="10" rx="2"/><path d="M17 10h3l3 3v4h-6"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+        <div>
+          <strong>2-3 días</strong>
+          <span>envío nacional</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR =========================================================== -->
+<section class="trust-strip">
+  <div class="container trust-strip__inner">
+    @for (point of trustPoints; track point.title) {
+      <div class="trust-strip__item">
+        <div class="trust-strip__icon">
+          @switch (point.icon) {
+            @case ('shield') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            }
+            @case ('truck') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="7" width="16" height="10" rx="2"/><path d="M17 10h3l3 3v4h-6"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+            }
+            @case ('award') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>
+            }
+            @case ('headset') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/><path d="M3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/><path d="M17 19a2 2 0 0 1-2 2h-2"/></svg>
+            }
+          }
+        </div>
+        <div>
+          <h3>{{ point.title }}</h3>
+          <p>{{ point.text }}</p>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- CATEGORIES =========================================================== -->
+<section class="section categories">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Catálogo</span>
+      <h2 class="section-title">Equipo médico para cada necesidad</h2>
+      <p class="section-sub">
+        Explora nuestras categorías y encuentra el equipo adecuado para ti o para quien cuidas.
+      </p>
+    </div>
+
+    <div class="categories__grid">
+      @for (cat of products.categories; track cat.slug) {
+        <a
+          class="category-card"
+          routerLink="/productos"
+          [queryParams]="{ categoria: cat.slug }"
+        >
+          <div class="category-card__icon">
+            <remi-category-icon [icon]="cat.slug" />
+          </div>
+          <h3>{{ cat.name }}</h3>
+          <p>{{ cat.description }}</p>
+          <span class="category-card__link">
+            Ver productos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS ===================================================== -->
+<section class="section featured">
+  <div class="container">
+    <div class="featured__head">
+      <div class="section-head">
+        <span class="eyebrow">Destacados</span>
+        <h2 class="section-title">Los más elegidos por nuestros clientes</h2>
+      </div>
+      <a routerLink="/productos" class="btn btn-outline hide-mobile">Ver catálogo completo</a>
+    </div>
+
+    <div class="product-grid">
+      @for (p of products.getFeatured(); track p.id) {
+        <div class="product-card">
+          <div class="product-card__media">
+            <remi-category-icon [icon]="p.category" />
+            @if (p.badge) {
+              <span class="badge badge-accent product-card__badge">{{ p.badge }}</span>
+            }
+          </div>
+          <div class="product-card__body">
+            <span class="product-card__brand">{{ p.brand }}</span>
+            <h3>{{ p.name }}</h3>
+            <p>{{ p.description }}</p>
+            <div class="product-card__footer">
+              <strong>{{ p.price | currency:'MXN':'$':'1.0-0' }} MXN</strong>
+              <a routerLink="/contacto" class="btn btn-primary btn-sm">Cotizar</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <a routerLink="/productos" class="btn btn-outline show-mobile">Ver catálogo completo</a>
+  </div>
+</section>
+
+<!-- WHY US / ABOUT PREVIEW ================================================ -->
+<section class="section why">
+  <div class="container why__inner">
+    <div class="why__visual">
+      <div class="why__stat-card">
+        <strong>+12 años</strong>
+        <span>cuidando la salud de familias mexicanas</span>
+      </div>
+      <div class="why__pattern"></div>
+    </div>
+
+    <div class="why__copy">
+      <span class="eyebrow">Por qué elegir REMI</span>
+      <h2 class="section-title">Una compra tranquila, respaldada por expertos</h2>
+      <p class="section-sub">
+        Sabemos que elegir equipo médico es una decisión importante para ti o tu familia. Por eso
+        combinamos productos certificados con atención humana en cada paso del proceso.
+      </p>
+
+      <ul class="why__list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Asesoría antes, durante y después de tu compra.
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Equipos originales, con garantía y refacciones disponibles.
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Opciones de compra y renta según tu presupuesto.
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Tres sucursales en Aguascalientes y envíos a todo el país.
+        </li>
+      </ul>
+
+      <a routerLink="/nosotros" class="btn btn-primary">Conoce más sobre nosotros</a>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS =============================================================== -->
+<section class="brands">
+  <div class="container">
+    <p class="brands__label">Trabajamos con marcas reconocidas mundialmente</p>
+    <div class="brands__row">
+      @for (brand of brands; track brand) {
+        <span class="brands__item">{{ brand }}</span>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS =========================================================== -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Testimonios</span>
+      <h2 class="section-title">Familias que ya confían en nosotros</h2>
+    </div>
+
+    <div class="testimonials__grid">
+      @for (t of testimonials; track t.name) {
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars">
+            @for (s of [1,2,3,4,5]; track s) {
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+            }
+          </div>
+          <p>&ldquo;{{ t.text }}&rdquo;</p>
+          <div class="testimonial-card__author">
+            <span class="testimonial-card__avatar">{{ t.name.charAt(0) }}</span>
+            <div>
+              <strong>{{ t.name }}</strong>
+              <span>{{ t.role }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER ============================================================= -->
+<section class="cta-banner">
+  <div class="container cta-banner__inner">
+    <div>
+      <h2>¿Listo para encontrar el equipo médico ideal?</h2>
+      <p>Escríbenos hoy y recibe asesoría personalizada sin costo, en minutos.</p>
+    </div>
+    <div class="cta-banner__actions">
+      <a routerLink="/contacto" class="btn btn-accent">Solicitar cotización</a>
+      <a href="https://wa.me/524493115440" target="_blank" rel="noopener" class="btn btn-ghost-light">
+        Escribir por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

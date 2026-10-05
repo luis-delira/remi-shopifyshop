@@ -1,0 +1,43 @@
+{%- comment -%}
+  Renders a product card.
+  Usage: {% render 'product-card', product: product %}
+{%- endcomment -%}
+
+<div class="product-card">
+  <div class="product-card__media">
+    {%- if product.featured_image -%}
+      {% render 'responsive-image',
+         image: product.featured_image,
+         alt: product.title,
+         sizes: '(max-width: 560px) 100vw, (max-width: 980px) 50vw, 290px',
+         widths: '290,435,580,870' %}
+    {%- else -%}
+      <div class="icon-placeholder">{% render 'icon', name: 'equipo-medico' %}</div>
+    {%- endif -%}
+
+    {%- if product.tags contains 'mas-vendido' -%}
+      <span class="badge badge-accent product-card__badge">Más vendido</span>
+    {%- elsif product.tags contains 'nuevo' -%}
+      <span class="badge badge-accent product-card__badge">Nuevo</span>
+    {%- elsif product.compare_at_price > product.price -%}
+      <span class="badge badge-accent product-card__badge">Oferta</span>
+    {%- endif -%}
+  </div>
+
+  <div class="product-card__body">
+    {%- if product.vendor -%}<span class="product-card__brand">{{ product.vendor }}</span>{%- endif -%}
+    <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <p>{{ product.description | strip_html | truncate: 90 }}</p>
+    <div class="product-card__footer">
+      <strong>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-card__price--compare">{{ product.compare_at_price | money }}</span>
+        {%- endif -%}
+        {{ product.price | money }}
+      </strong>
+      <a href="{{ product.url }}" class="btn btn-primary btn-sm">
+        {{ 'products.product.view_details' | t }}
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+{%- comment -%}
+  Barra superior. Usa emojis en lugar de iconos SVG para que el cliente pueda
+  editarlos como texto desde el editor de temas, sin tocar codigo.
+{%- endcomment -%}
+
+<div class="top-bar">
+  <div class="container top-bar__inner">
+    {%- if settings.contact_phone != blank -%}
+      <a class="top-bar__item" href="tel:{{ settings.contact_phone | remove: ' ' }}">
+        <span class="top-bar__emoji" aria-hidden="true">{{ section.settings.phone_emoji }}</span>
+        {{ settings.contact_phone }}
+      </a>
+    {%- endif -%}
+
+    {%- if settings.contact_email != blank -%}
+      <a class="top-bar__item hide-sm" href="mailto:{{ settings.contact_email }}">
+        <span class="top-bar__emoji" aria-hidden="true">{{ section.settings.email_emoji }}</span>
+        {{ settings.contact_email }}
+      </a>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      <span class="top-bar__item{% if block.settings.hide_on_mobile %} hide-sm{% endif %}" {{ block.shopify_attributes }}>
+        <span class="top-bar__emoji" aria-hidden="true">{{ block.settings.emoji }}</span>
+        {{ block.settings.text }}
+      </span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de anuncios",
+  "settings": [
+    { "type": "text", "id": "phone_emoji", "label": "Emoji del teléfono", "default": "📞" },
+    { "type": "text", "id": "email_emoji", "label": "Emoji del correo", "default": "✉️" }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Mensaje",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji", "default": "🚚" },
+        { "type": "text", "id": "text", "label": "Texto", "default": "Envíos el mismo día" },
+        { "type": "checkbox", "id": "hide_on_mobile", "label": "Ocultar en celular", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "emoji": "🚚", "text": "Envíos el mismo día" } },
+      { "type": "message", "settings": { "emoji": "🇲🇽", "text": "Envíos a todo México", "hide_on_mobile": true } },
+      { "type": "message", "settings": { "emoji": "🔒", "text": "Compra 100% segura", "hide_on_mobile": true } }
+    ]
+  }
+}
+{% endschema %}

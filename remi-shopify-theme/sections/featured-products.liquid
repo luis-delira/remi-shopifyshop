@@ -1,0 +1,105 @@
+<section class="section featured">
+  <div class="container">
+    <div class="featured__head">
+      <div class="section-head">
+        <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+        <h2 class="section-title">{{ section.settings.heading }}</h2>
+      </div>
+      {%- if section.settings.view_all_link != blank -%}
+        <a href="{{ section.settings.view_all_link }}" class="btn btn-outline hide-mobile">{{ section.settings.view_all_label }}</a>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%}
+      Si hay bloques de producto, mandan esos (permite elegir uno por uno).
+      Si no, se usa la coleccion elegida y, en ultimo caso, todos los productos.
+    {%- endcomment -%}
+    <div class="product-grid">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.product != blank -%}
+            <div {{ block.shopify_attributes }}>
+              {% render 'product-card', product: block.settings.product %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif section.settings.collection != blank -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for product in collections.all.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.view_all_link != blank -%}
+      <a href="{{ section.settings.view_all_link }}" class="btn btn-outline show-mobile">{{ section.settings.view_all_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Productos destacados",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto superior",
+      "default": "Destacados"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Los más elegidos por nuestros clientes"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección a mostrar (vacío = todos los productos)"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Productos a mostrar",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Texto del enlace 'ver todo'",
+      "default": "Ver catálogo completo"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Enlace 'ver todo'"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Productos destacados"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Producto",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Producto"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8
+}
+{% endschema %}

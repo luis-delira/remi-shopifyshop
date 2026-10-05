@@ -1,0 +1,254 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "REMI Equipo Médico",
+    "theme_version": "1.0.0",
+    "theme_author": "REMI Equipo Médico",
+    "theme_documentation_url": "https://remiequipomedico.com",
+    "theme_support_url": "https://remiequipomedico.com"
+  },
+  {
+    "name": "Tipografía",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Fuente de títulos",
+        "info": "Se usa en encabezados, precios y botones.",
+        "default": "outfit_n7"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Fuente de textos",
+        "info": "Se usa en párrafos, listas y formularios.",
+        "default": "manrope_n4"
+      }
+    ]
+  },
+  {
+    "name": "Marca y SEO",
+    "settings": [
+      {
+        "type": "text",
+        "id": "business_name",
+        "label": "Nombre del negocio",
+        "info": "Aparece en los datos que lee Google. Si lo dejas vacío se usa el nombre de la tienda.",
+        "default": "REMI Equipo Médico"
+      },
+      {
+        "type": "text",
+        "id": "business_area",
+        "label": "Zona de servicio",
+        "info": "Ciudad o región a la que atiendes. Ayuda a aparecer en búsquedas locales.",
+        "default": "Aguascalientes, México"
+      },
+      {
+        "type": "text",
+        "id": "business_opening_hours",
+        "label": "Horario en formato para Google",
+        "info": "Distinto al horario que se muestra en la página: Google necesita este formato exacto. Días: Mo, Tu, We, Th, Fr, Sa, Su. Separa varios rangos con coma.",
+        "default": "Mo-Fr 09:00-19:00, Sa 09:00-14:00"
+      },
+      {
+        "type": "select",
+        "id": "business_price_range",
+        "label": "Rango de precios",
+        "info": "Indicador orientativo que muestra Google.",
+        "default": "$$",
+        "options": [
+          { "value": "$", "label": "Económico ($)" },
+          { "value": "$$", "label": "Medio ($$)" },
+          { "value": "$$$", "label": "Alto ($$$)" }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_image",
+        "label": "Logotipo",
+        "info": "Se usa en el encabezado, el pie de página y los datos que lee Google. Si lo dejas vacío se usa el logo que ya trae el tema."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Ícono de la pestaña del navegador. Imagen cuadrada de 96 × 96 px o más."
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Imagen para compartir",
+        "info": "Se muestra al compartir un enlace en WhatsApp, Facebook o X. Recomendado 1200 × 630 px."
+      }
+    ]
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Paleta principal"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Azul primario",
+        "default": "#1e5078"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_700",
+        "label": "Azul primario (oscuro)",
+        "default": "#184060"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_900",
+        "label": "Azul primario (muy oscuro)",
+        "default": "#122f47"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_50",
+        "label": "Azul primario (claro)",
+        "default": "#eff3f6"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_100",
+        "label": "Azul primario (muy claro)",
+        "default": "#dde5eb"
+      },
+      {
+        "type": "header",
+        "content": "Acentos"
+      },
+      {
+        "type": "color",
+        "id": "color_teal",
+        "label": "Teal",
+        "default": "#13827f"
+      },
+      {
+        "type": "color",
+        "id": "color_teal_700",
+        "label": "Teal (oscuro)",
+        "default": "#0e6361"
+      },
+      {
+        "type": "color",
+        "id": "color_teal_50",
+        "label": "Teal (claro)",
+        "default": "#eef6f6"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Color de acción (botones)",
+        "default": "#208734"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_700",
+        "label": "Color de acción (oscuro)",
+        "default": "#186627"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_50",
+        "label": "Color de acción (claro)",
+        "default": "#edf5ef"
+      },
+      {
+        "type": "header",
+        "content": "Texto y fondo"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Texto principal",
+        "default": "#10222f"
+      },
+      {
+        "type": "color",
+        "id": "color_body",
+        "label": "Texto secundario",
+        "default": "#47606f"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Texto tenue",
+        "default": "#7690a0"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Fondo de página",
+        "default": "#f5f9fc"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Fondo de tarjetas",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Bordes",
+        "default": "#dfe8ee"
+      }
+    ]
+  },
+  {
+    "name": "Contacto",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Teléfono",
+        "default": "449 311 5440"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "Número de WhatsApp (con código de país, solo dígitos)",
+        "default": "524493115440"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "Mensaje predeterminado de WhatsApp",
+        "default": "Hola, me gustaría más información sobre equipo médico."
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Correo de contacto",
+        "default": "contacto@remiequipomedico.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_hours",
+        "label": "Horario de atención",
+        "default": "Lunes a viernes de 9:00 a 19:00 h · Sábados de 9:00 a 14:00 h"
+      }
+    ]
+  },
+  {
+    "name": "Redes sociales",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      }
+    ]
+  }
+]

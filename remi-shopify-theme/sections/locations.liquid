@@ -1,0 +1,109 @@
+<section class="section locations">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      <p class="section-sub">{{ section.settings.text }}</p>
+    </div>
+    <div class="locations__grid">
+      {%- for block in section.blocks -%}
+        <div class="location-card" {{ block.shopify_attributes }}>
+          {% render 'icon', name: 'location' %}
+          <div>
+            <h3>{{ block.settings.name }}</h3>
+            <p>{{ block.settings.address }}</p>
+            {%- if block.settings.map_url != blank -%}
+              <a class="location-card__map" href="{{ block.settings.map_url }}" target="_blank" rel="noopener">
+                {{ 'locations.directions' | t }}
+                {% render 'icon', name: 'arrow-right' %}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sucursales",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto superior",
+      "default": "Sucursales"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Visítanos en Aguascalientes"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Descripción",
+      "default": "También enviamos a todo México en 2 a 3 días hábiles."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Sucursal",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nombre",
+          "default": "Sucursal Universidad"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Dirección",
+          "default": "Av. Universidad 316, San Cayetano, C.P. 20010, Aguascalientes, Ags."
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Enlace de Google Maps"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Sucursales",
+      "blocks": [
+        {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Universidad",
+            "address": "Av. Universidad 316, San Cayetano, C.P. 20010, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/maE1vZzLB2B4T85V7"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Central",
+            "address": "Av. Aguascalientes Ote. 2408, Desarrollo Especial Ojocaliente, C.P. 20196, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/nQ8C5RZAviT8DXaE8"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "name": "Sucursal Ojocaliente",
+            "address": "Av. Aguascalientes Ote., Los Conos 2602, C.P. 20196, Aguascalientes, Ags.",
+            "map_url": "https://maps.app.goo.gl/Uhn2A5mbBWaG2Lpu5"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

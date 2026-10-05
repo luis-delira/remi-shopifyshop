@@ -1,0 +1,19 @@
+# Dependencias: se reinstalan con npm install (son 320 MB)
+node_modules/
+
+# Compilados
+dist/
+.angular/
+
+# Shopify CLI
+.shopify/
+
+# Archivo fuente de Photoshop (18 MB). Git guarda cada versión para siempre y
+# no hace falta para desplegar: vive en el Drive del cliente.
+Fondos.psd
+
+# Sistema y registros
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
