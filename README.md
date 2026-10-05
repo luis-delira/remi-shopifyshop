@@ -65,6 +65,13 @@ tienda.
 
 ---
 
+## Entrega al cliente
+
+Los pasos para cerrar el proyecto y transferir la tienda están en
+[`ENTREGA.md`](ENTREGA.md): qué configurar antes, cómo se transfiere desde
+Shopify Partners, qué solo puede hacer la clienta y qué accesos deben quedar
+en sus manos.
+
 ## Decisiones pendientes del cliente
 
 Lo que falta no es código: son decisiones que solo el cliente puede tomar.
