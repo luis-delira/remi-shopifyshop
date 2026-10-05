@@ -1,15 +1,16 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "testimonials": {
       "type": "testimonials",
-      "settings": {
-        "eyebrow": "Testimonios",
-        "heading": "Lo que dicen nuestros clientes",
-        "show_all": true,
-        "max_visible": 12,
-        "review_label": "Deja tu reseña",
-        "review_link": "#ReviewForm"
-      },
       "blocks": {
         "t-1": {
           "type": "testimonial",
@@ -43,10 +44,19 @@
         "t-1",
         "t-2",
         "t-3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Testimonios",
+        "heading": "Lo que dicen nuestros clientes",
+        "max_visible": 12,
+        "show_all": true,
+        "review_label": "Deja tu reseña",
+        "review_link": "#ReviewForm"
+      }
     },
     "review-form": {
-      "type": "review-form"
+      "type": "review-form",
+      "settings": {}
     }
   },
   "order": [

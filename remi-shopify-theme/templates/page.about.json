@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "about-hero": {
@@ -36,7 +45,8 @@
       }
     },
     "mission-vision": {
-      "type": "mission-vision"
+      "type": "mission-vision",
+      "settings": {}
     },
     "values": {
       "type": "values",
@@ -75,7 +85,8 @@
         "v-2",
         "v-3",
         "v-4"
-      ]
+      ],
+      "settings": {}
     },
     "timeline": {
       "type": "timeline",
@@ -114,7 +125,8 @@
         "m-2",
         "m-3",
         "m-4"
-      ]
+      ],
+      "settings": {}
     },
     "locations": {
       "type": "locations",
@@ -148,7 +160,8 @@
         "loc-1",
         "loc-2",
         "loc-3"
-      ]
+      ],
+      "settings": {}
     }
   },
   "order": [

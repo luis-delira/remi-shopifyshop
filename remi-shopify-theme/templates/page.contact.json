@@ -1,20 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "contact-hero": {
-      "type": "contact-hero"
+      "type": "contact-hero",
+      "settings": {}
     },
     "contact-form": {
       "type": "contact-form",
       "blocks": {
-        "c-1": { "type": "category_option", "settings": { "label": "Oxigenoterapia" } },
-        "c-2": { "type": "category_option", "settings": { "label": "Apnea del Sueño" } },
-        "c-3": { "type": "category_option", "settings": { "label": "Ortopedia" } },
-        "c-4": { "type": "category_option", "settings": { "label": "Equipo Médico" } },
-        "c-5": { "type": "category_option", "settings": { "label": "Reguladores" } },
-        "c-6": { "type": "category_option", "settings": { "label": "Renta en Aguascalientes" } }
+        "c-1": {
+          "type": "category_option",
+          "settings": {
+            "label": "Oxigenoterapia"
+          }
+        },
+        "c-2": {
+          "type": "category_option",
+          "settings": {
+            "label": "Apnea del Sueño"
+          }
+        },
+        "c-3": {
+          "type": "category_option",
+          "settings": {
+            "label": "Ortopedia"
+          }
+        },
+        "c-4": {
+          "type": "category_option",
+          "settings": {
+            "label": "Equipo Médico"
+          }
+        },
+        "c-5": {
+          "type": "category_option",
+          "settings": {
+            "label": "Reguladores"
+          }
+        },
+        "c-6": {
+          "type": "category_option",
+          "settings": {
+            "label": "Renta en Aguascalientes"
+          }
+        }
       },
-      "block_order": ["c-1", "c-2", "c-3", "c-4", "c-5", "c-6"]
+      "block_order": [
+        "c-1",
+        "c-2",
+        "c-3",
+        "c-4",
+        "c-5",
+        "c-6"
+      ],
+      "settings": {}
     }
   },
-  "order": ["contact-hero", "contact-form"]
+  "order": [
+    "contact-hero",
+    "contact-form"
+  ]
 }

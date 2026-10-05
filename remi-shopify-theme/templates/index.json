@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -27,9 +36,9 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "asset": "carrusel-1",
             "alt": "Quirófano equipado con cama hospitalaria, ventilador, monitores y carros de curación. Texto: las herramientas que tu equipo profesional necesita, solo en REMI. Renta de equipo médico e insumos.",
             "link": "/pages/renta-de-equipo-medico",
+            "asset": "carrusel-1",
             "asset_mobile_ratio": "0.5143",
             "asset_ratio": "2.0236"
           }
@@ -78,9 +87,9 @@
         "renta-1"
       ],
       "settings": {
+        "autoplay_seconds": 6,
         "button_link": "shopify://collections/all",
-        "button_2_link": "shopify://pages/contacto",
-        "autoplay_seconds": 6
+        "button_2_link": "shopify://pages/contacto"
       }
     },
     "trust-bar": {
@@ -124,7 +133,8 @@
         "point-2",
         "point-3",
         "point-4"
-      ]
+      ],
+      "settings": {}
     },
     "category-grid": {
       "type": "category-grid",
@@ -133,50 +143,50 @@
           "type": "category",
           "settings": {
             "collection": "concentradores-de-oxigeno",
+            "asset": "categoria-concentradores.png",
             "icon": "oxigenoterapia",
             "title": "Concentradores de Oxígeno",
-            "text": "Concentradores estacionarios y portátiles, filtros y baterías de repuesto.",
-            "asset": "categoria-concentradores.png"
+            "text": "Concentradores estacionarios y portátiles, filtros y baterías de repuesto."
           }
         },
         "cat-2": {
           "type": "category",
           "settings": {
             "collection": "apnea-del-sueno",
+            "asset": "categoria-apnea.png",
             "icon": "apnea-del-sueno",
             "title": "Apnea del Sueño",
-            "text": "Equipos CPAP, BiPAP y mascarillas para dormir y descansar mejor.",
-            "asset": "categoria-apnea.png"
+            "text": "Equipos CPAP, BiPAP y mascarillas para dormir y descansar mejor."
           }
         },
         "cat-3": {
           "type": "category",
           "settings": {
             "collection": "camas-hospitalarias-y-colchones",
+            "asset": "categoria-camas.png",
             "icon": "camas",
             "title": "Camas Hospitalarias y Colchones",
-            "text": "Camas clínicas manuales y eléctricas, colchones seccionados y antiescaras.",
-            "asset": "categoria-camas.png"
+            "text": "Camas clínicas manuales y eléctricas, colchones seccionados y antiescaras."
           }
         },
         "cat-4": {
           "type": "category",
           "settings": {
             "collection": "tanques-de-oxigeno-y-reguladores",
+            "asset": "categoria-tanques.png",
             "icon": "reguladores",
             "title": "Tanques y Reguladores",
-            "text": "Tanques de oxígeno medicinal de distintas capacidades y reguladores CGA-540.",
-            "asset": "categoria-tanques.png"
+            "text": "Tanques de oxígeno medicinal de distintas capacidades y reguladores CGA-540."
           }
         },
         "cat-5": {
           "type": "category",
           "settings": {
             "collection": "ventilacion-mecanica",
+            "asset": "categoria-ventilacion.png",
             "icon": "ventilacion",
             "title": "Ventilación Mecánica",
-            "text": "Ventiladores, sistemas de alto flujo y sus consumibles originales.",
-            "asset": "categoria-ventilacion.png"
+            "text": "Ventiladores, sistemas de alto flujo y sus consumibles originales."
           }
         }
       },
@@ -186,13 +196,11 @@
         "cat-3",
         "cat-4",
         "cat-5"
-      ]
+      ],
+      "settings": {}
     },
     "featured-products": {
       "type": "featured-products",
-      "settings": {
-        "view_all_link": "shopify://collections/all"
-      },
       "blocks": {
         "dest-1": {
           "type": "product",
@@ -224,7 +232,10 @@
         "dest-2",
         "dest-3",
         "dest-4"
-      ]
+      ],
+      "settings": {
+        "view_all_link": "shopify://collections/all"
+      }
     },
     "why-us": {
       "type": "why-us",
@@ -323,7 +334,8 @@
         "marca-4",
         "marca-5",
         "marca-6"
-      ]
+      ],
+      "settings": {}
     },
     "testimonials": {
       "type": "testimonials",
